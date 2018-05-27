@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { BookAnemia } from './BookAnemia';
-import { BooksModule } from '../app/BooksModule';
+import { BookAnemia } from '../infrastructure/BookAnemia';
+import { BooksResource } from '../infrastructure/BooksResource';
 
-@Injectable({
-	providedIn: BooksModule
-})
-export class BooksResource {
+@Injectable()
+export class RestBooksResource extends BooksResource {
 
-	constructor() {}
+	constructor() {
+		super();
+	}
 
 	fetchBooks(): Observable<Array<BookAnemia>> {
 		return of(this.books);

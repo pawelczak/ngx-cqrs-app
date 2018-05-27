@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(routes),
-		BooksModule,
+		BooksModule.forRoot({ rest: true }),
 		StoreModule.forRoot({}),
 		EffectsModule.forRoot([]),
 		StoreDevtoolsModule.instrument({

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { BooksRepository } from '../../store/books/BooksRepository';
 import { Book } from '../Book';
+import { BooksRepository } from '../../infrastructure/BooksRepository';
 
 @Component({
 	selector: 'app-books',
@@ -10,18 +12,26 @@ import { Book } from '../Book';
 		'./BooksComponent.ngx.scss'
 	]
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent implements OnInit, OnDestroy {
 
-	private books: Array<Book>;
+	books: Array<Book>;
+
+	private unsubscribe$: Subject<void> = new Subject<void>();
 
 	constructor(private booksRepository: BooksRepository) {
 	}
 
 	ngOnInit() {
 		this.booksRepository.selectBooks()
+			.pipe(takeUntil(this.unsubscribe$))
 			.subscribe((books: Array<Book>) => {
 				this.books = books;
 			});
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 }
