@@ -6,14 +6,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
-import { BooksModule } from '../library/books/app/BooksModule';
+import { BookModule } from '../library/book/ui/BookModule';
 import { AppComponent } from './app.component';
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(routes),
-		BooksModule.forRoot({ rest: true }),
+		BookModule.forRoot({ rest: true }),
 		StoreModule.forRoot({}),
 		EffectsModule.forRoot([]),
 		StoreDevtoolsModule.instrument({

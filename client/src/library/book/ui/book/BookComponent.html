@@ -1,0 +1,29 @@
+<ul>
+	<li *ngFor="let book of books" >
+
+		<p>{{book.getShortTitle()}}</p>
+
+		<p *ngIf="book.hasAuthors()">
+			List of authors
+		</p>
+
+		<p *ngIf="book.hasRating()">
+			Rating: {{book.rating}}
+		</p>
+
+		<p>
+			<button (click)="deleteBook(book)">Delete</button>
+
+		</p>
+
+	</li>
+</ul>
+
+
+<div>
+
+	<h2>Add Book</h2>
+
+	<button (click)="addBook()" >Add</button>
+
+</div>
