@@ -1,9 +1,12 @@
+import { BookAddCommand } from './add/BookAddCommand';
+import { BookDeleteCommand } from './delete/BookDeleteCommand';
+
 export abstract class BookDispatcher {
 
 	abstract fetchBooks(): void;
 
-	abstract addBook(title: string): void;
+	abstract addBook(bookAddCommand: BookAddCommand): void;
 
-	abstract deleteBook(title: string): void;
+	abstract deleteBook(bookDeleteCommand: BookDeleteCommand): void;
 
 }

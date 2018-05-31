@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BookRatingRepository } from '../../domain/rating/BookRatingRepository';
-import { Book } from '../../../query/domain/Book';
+import { AnemicBook } from '../../domain/AnemicBook';
 
 @Injectable()
 export class BookRatingRepositoryImpl extends BookRatingRepository {
@@ -11,9 +11,9 @@ export class BookRatingRepositoryImpl extends BookRatingRepository {
 		super();
 	}
 
-	getRating(book: Book): Rating;
+	getRating(book: AnemicBook): Rating;
 	getRating(title: string): Rating;
-	getRating(title: string | Book): Rating {
+	getRating(title: string | AnemicBook): Rating {
 		return new Rating();
 	}
 }

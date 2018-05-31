@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 
 import { BookDispatcher } from '../../domain/BookDispatcher';
 import * as BookActions from './BookActions';
+import { BookAddCommand } from '../../domain/add/BookAddCommand';
+import { BookDeleteCommand } from '../../domain/delete/BookDeleteCommand';
 
 
 @Injectable()
@@ -16,12 +18,12 @@ export class StoreBookDispatcher extends BookDispatcher {
 		this.store.dispatch(new BookActions.FetchAllBookAction());
 	}
 
-	addBook(title: string): void {
-		this.store.dispatch(new BookActions.AddBookAction(title));
+	addBook(bookAddCommand: BookAddCommand): void {
+		this.store.dispatch(new BookActions.AddBookAction(bookAddCommand));
 	}
 
-	deleteBook(title: string): void {
-		this.store.dispatch(new BookActions.DeleteBookAction(title));
+	deleteBook(bookDeleteCommand: BookDeleteCommand): void {
+		this.store.dispatch(new BookActions.DeleteBookAction(bookDeleteCommand));
 	}
 
 }

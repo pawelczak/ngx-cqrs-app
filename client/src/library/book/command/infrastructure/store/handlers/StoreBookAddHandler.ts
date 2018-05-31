@@ -4,7 +4,8 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ActionTypes, AddBookFailureAction, AddBookSuccessAction } from '../BookActions';
-import { BookAddHandler } from '../../../domain/handlers/BookAddHandler';
+import { BookAddHandler } from '../../../domain/add/BookAddHandler';
+import { BookAddCommand } from '../../../domain/add/BookAddCommand';
 
 @Injectable()
 export class StoreBookAddHandler {
@@ -17,16 +18,17 @@ export class StoreBookAddHandler {
 	addBook$ = this.actions$
 				   .ofType(ActionTypes.ADD_BOOK)
 				   .pipe(
-					   switchMap((action: any) => {
+					   map((action: any) => action.payload),
+					   switchMap((addCommand: BookAddCommand) => {
 
 						   return this.bookAddHandler
-									  .handleAddCommand(action.payload)
+									  .handleAddCommand(addCommand)
 									  .pipe(
 										  map((books: any) => {
 											  return new AddBookSuccessAction(books);
 										  }),
 										  catchError((error: any) => {
-										     return of(new AddBookFailureAction(error));
+											  return of(new AddBookFailureAction(error));
 										  })
 									  );
 					   })

@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { BookFetchHandler } from '../../../domain/handlers/BookFetchHandler';
+import { BookFetchHandler } from '../../../domain/fetch/BookFetchHandler';
 import { ActionTypes, FetchAllBookFailureAction, FetchAllBookSuccessAction } from '../BookActions';
 
 @Injectable()

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BookAnemia } from '../../../command/infrastructure/store/BookAnemia';
+import { AnemicBook } from '../../../command/domain/AnemicBook';
 import { BookRepository } from '../../domain/BookRepository';
 import { Book } from '../../domain/Book';
 
@@ -21,10 +21,10 @@ export class StoreBookRepository extends BookRepository {
 				   .pipe(
 						// BookAnemia only link between command and query
 						// Selectors can probably handle this issue
-				   		map((books: Array<BookAnemia>) => {
+				   		map((books: Array<AnemicBook>) => {
 							let newBooks: Array<Book> = [];
 
-							books.forEach((book: BookAnemia) => {
+							books.forEach((book: AnemicBook) => {
 								newBooks.push(new Book(book.title, book.rating));
 							});
 

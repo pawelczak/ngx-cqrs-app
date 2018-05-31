@@ -1,7 +1,7 @@
-import { Book } from '../../../query/domain/Book';
+import { AnemicBook } from '../AnemicBook';
 
 export abstract class BookRatingRepository {
 
-	abstract getRating(book: Book): Rating;
+	abstract getRating(book: AnemicBook): Rating;
 	abstract getRating(title: string): Rating;
 }
