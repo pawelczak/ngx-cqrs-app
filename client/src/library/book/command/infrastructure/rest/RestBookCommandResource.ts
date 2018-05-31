@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { BookResource } from '../../domain/BookCommandResource';
+import { BookResource } from '../../domain/BookResource';
 import { BookDTO } from '../../domain/BookDTO';
 
 

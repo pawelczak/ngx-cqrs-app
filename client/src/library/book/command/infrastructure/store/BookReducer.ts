@@ -32,7 +32,7 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 
 			const deletedBookTitle = action.payload;
 
-			let books = state.books.filter((book) => book.title !== deletedBookTitle)
+			let books = state.books.filter((book) => book.title !== deletedBookTitle);
 
 			return Object.assign(new BookState(), state, { books });
 

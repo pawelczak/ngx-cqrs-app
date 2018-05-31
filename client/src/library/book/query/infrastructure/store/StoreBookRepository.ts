@@ -19,7 +19,9 @@ export class StoreBookRepository extends BookRepository {
 		return this.store
 				   .select(state => state.library.books.books)
 				   .pipe(
-				   		map((books: Array<BookAnemia>) => { // <-- BookAnemia only link between command and query
+						// BookAnemia only link between command and query
+						// Selectors can probably handle this issue
+				   		map((books: Array<BookAnemia>) => {
 							let newBooks: Array<Book> = [];
 
 							books.forEach((book: BookAnemia) => {

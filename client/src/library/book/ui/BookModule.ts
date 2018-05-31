@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { combineReducers, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { BookResource } from '../command/domain/BookCommandResource';
+import { BookResource } from '../command/domain/BookResource';
 import { RestBookCommandResource } from '../command/infrastructure/rest/RestBookCommandResource';
 import { BookDispatcher } from '../command/domain/BookDispatcher';
-import { BookHandler } from '../command/domain/BookHandler';
-import { BookDeleteHandler } from '../command/domain/BookDeleteHandler';
+import { BookHandler } from '../command/domain/handlers/BookHandler';
+import { BookDeleteHandler } from '../command/domain/handlers/BookDeleteHandler';
 import { BookComponent } from './book/BookComponent';
 import { BookRepository } from '../query/BookRepository';
 import { StoreBookRepository } from '../query/infrastructure/store/StoreBookRepository';

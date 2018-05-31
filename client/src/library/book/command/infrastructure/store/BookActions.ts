@@ -9,9 +9,11 @@ export const ActionTypes = {
 
 	ADD_BOOK: `${PREFIX}ADD_BOOK`,
 	ADD_BOOK_SUCCESS: `${PREFIX}ADD_BOOK_SUCCESS`,
+	ADD_BOOK_FAILURE: `${PREFIX}ADD_BOOK_FAILURE`,
 
 	DELETE_BOOK: `${PREFIX}DELETE_BOOK`,
-	DELETE_BOOK_SUCCESS: `${PREFIX}DELETE_BOOK_SUCCESS`
+	DELETE_BOOK_SUCCESS: `${PREFIX}DELETE_BOOK_SUCCESS`,
+	DELETE_BOOK_FAILURE: `${PREFIX}DELETE_BOOK_FAILURE`
 };
 
 export class FetchAllBookAction implements Action {
@@ -49,6 +51,13 @@ export class AddBookSuccessAction implements Action {
 	}
 }
 
+export class AddBookFailureAction implements Action {
+	readonly type = ActionTypes.ADD_BOOK_FAILURE;
+
+	constructor(public payload?: any) {
+	}
+}
+
 export class DeleteBookAction implements Action {
 	readonly type = ActionTypes.DELETE_BOOK;
 
@@ -63,8 +72,19 @@ export class DeleteBookSuccessAction implements Action {
 	}
 }
 
+export class DeleteBookFailureAction implements Action {
+	readonly type = ActionTypes.DELETE_BOOK_FAILURE;
+
+	constructor(public payload?: any) {
+	}
+}
+
 export type Actions = FetchAllBookAction |
 	FetchAllBookSuccessAction |
 	FetchAllBookFailureAction |
 	AddBookAction |
-	AddBookSuccessAction;
+	AddBookSuccessAction |
+	AddBookFailureAction |
+	DeleteBookAction |
+	DeleteBookSuccessAction |
+	DeleteBookFailureAction;
