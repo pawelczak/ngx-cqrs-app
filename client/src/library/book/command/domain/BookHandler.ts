@@ -5,7 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { Book } from '../query/Book';
 import { BookAnemia } from '../infrastructure/store/BookAnemia';
-import { BookResource } from './BookResource';
+import { BookResource } from './BookCommandResource';
 import { ActionTypes, AddBookSuccessAction, FetchAllBookFailureAction, FetchAllBookSuccessAction } from '../infrastructure/store/BookActions';
 
 
@@ -13,7 +13,7 @@ import { ActionTypes, AddBookSuccessAction, FetchAllBookFailureAction, FetchAllB
 export class BookHandler {
 
 	constructor(private actions$: Actions,
-				private booksResource: BookResource) {
+				private bookCommandResource: BookResource) {
 	}
 
 	@Effect()
@@ -21,7 +21,8 @@ export class BookHandler {
 					  .ofType(ActionTypes.FETCH_ALL_BOOK)
 					  .pipe(
 						  switchMap(() => {
-							  return this.booksResource.fetchBooks()
+							  return this.bookCommandResource
+										 .fetchBooks()
 										 .pipe(
 											 map((books: Array<BookAnemia>) => {
 

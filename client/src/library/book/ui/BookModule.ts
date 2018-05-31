@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { combineReducers, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { BookResource } from '../command/domain/BookResource';
-import { RestBookResource } from '../command/infrastructure/rest/RestBookResource';
+import { BookResource } from '../command/domain/BookCommandResource';
+import { RestBookCommandResource } from '../command/infrastructure/rest/RestBookCommandResource';
 import { BookDispatcher } from '../command/domain/BookDispatcher';
 import { BookHandler } from '../command/domain/BookHandler';
 import { BookDeleteHandler } from '../command/domain/BookDeleteHandler';
@@ -49,7 +49,7 @@ export class BookModule {
 				...rootProviders,
 				{
 					provide: BookResource,
-					useClass: RestBookResource
+					useClass: RestBookCommandResource
 				} as Provider];
 		}
 

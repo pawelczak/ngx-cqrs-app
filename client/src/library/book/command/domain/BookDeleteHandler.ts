@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map } from 'rxjs/operators';
 
 import { ActionTypes, DeleteBookSuccessAction } from '../infrastructure/store/BookActions';
-import { BookResource } from './BookResource';
+import { BookResource } from './BookCommandResource';
 
 @Injectable()
 export class BookDeleteHandler {
