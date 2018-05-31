@@ -196,10 +196,6 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
-"@types/cucumber@0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@types/cucumber/-/cucumber-0.0.31.tgz#5dc09d922dc340ad18240b8565a395f160440574"
-
 "@types/es6-shim@0.0.31":
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/@types/es6-shim/-/es6-shim-0.0.31.tgz#5a19460c54ebbf854aefce90528980709f9a0c2d"
@@ -215,10 +211,6 @@
 "@types/node@^6.0.38":
   version "6.0.111"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.111.tgz#85f880a1bab78d395a5de9bcb5319e73a0c31400"
-
-"@types/selenium-webdriver@^2.53.38":
-  version "2.53.43"
-  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.43.tgz#2de3d718819bc20165754c4a59afb7e9833f6707"
 
 "@webassemblyjs/ast@1.4.3":
   version "1.4.3"
@@ -985,19 +977,6 @@ boom@2.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
-
-bootstrap-loader@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/bootstrap-loader/-/bootstrap-loader-1.3.3.tgz#5984bccccc32653159c1362c4d26644f9cbf5cd2"
-  dependencies:
-    chalk "^1.1.3"
-    escape-regexp "0.0.1"
-    exports-loader "^0.6.3"
-    js-yaml "^3.7.0"
-    loader-utils "^0.2.16"
-    resolve "^1.1.7"
-    semver "^5.3.0"
-    strip-json-comments "^2.0.1"
 
 brace-expansion@^1.0.0, brace-expansion@^1.1.7:
   version "1.1.11"
@@ -2362,10 +2341,6 @@ es6-symbol@^3.1.1, es6-symbol@~3.1.1:
 escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
-
-escape-regexp@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/escape-regexp/-/escape-regexp-0.0.1.tgz#f44bda12d45bbdf9cb7f862ee7e4827b3dd32254"
 
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -3920,7 +3895,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@3.x, js-yaml@^3.4.3, js-yaml@^3.7.0:
+js-yaml@3.x, js-yaml@^3.4.3:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
   dependencies:
@@ -7162,7 +7137,7 @@ strip-json-comments@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-1.0.4.tgz#1e15fbcac97d3ee99bf2d73b4c656b082bbafb91"
 
-strip-json-comments@^2.0.0, strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
+strip-json-comments@^2.0.0, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 

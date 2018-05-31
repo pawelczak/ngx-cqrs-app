@@ -10,7 +10,6 @@ export class BookDeleteHandler {
 	}
 
 	handleDeleteCommand(title: string): Observable<boolean> {
-
 		return this.bookResource.deleteBook(title);
 	}
 }

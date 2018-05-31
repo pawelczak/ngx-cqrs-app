@@ -7,7 +7,7 @@ import { BookFetchHandler } from '../../../domain/handlers/BookFetchHandler';
 import { ActionTypes, FetchAllBookFailureAction, FetchAllBookSuccessAction } from '../BookActions';
 
 @Injectable()
-export class StoreBookHandler {
+export class StoreBookFetchHandler {
 
 	constructor(private actions$: Actions,
 				private bookFetchHandler: BookFetchHandler) {

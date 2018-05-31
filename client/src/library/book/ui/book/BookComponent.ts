@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Book } from '../../query/Book';
 import { BookDispatcher } from '../../command/domain/BookDispatcher';
-import { BookRepository } from '../../query/BookRepository';
+import { Book } from '../../query/domain/Book';
+import { BookRepository } from '../../query/domain/BookRepository';
 
 @Component({
 	selector: 'app-book',

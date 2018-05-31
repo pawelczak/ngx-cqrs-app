@@ -13,6 +13,8 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 
 		case Actions.ActionTypes.FETCH_ALL_BOOK_SUCCESS:
 
+			console.log(action.payload);
+
 			const allBooks = [...action.payload];
 
 			return Object.assign(new BookState(), state, { books: allBooks, fetching: false, fetched: true });

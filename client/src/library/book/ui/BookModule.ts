@@ -1,36 +1,47 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { combineReducers, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { BookResource } from '../command/domain/BookResource';
-import { RestBookCommandResource } from '../command/infrastructure/rest/RestBookCommandResource';
+import { RestBookResource } from '../command/infrastructure/rest/RestBookResource';
 import { BookDispatcher } from '../command/domain/BookDispatcher';
-import { BookHandler } from '../command/domain/handlers/BookHandler';
 import { BookDeleteHandler } from '../command/domain/handlers/BookDeleteHandler';
 import { BookComponent } from './book/BookComponent';
-import { BookRepository } from '../query/BookRepository';
 import { StoreBookRepository } from '../query/infrastructure/store/StoreBookRepository';
 import { bookReducer } from '../command/infrastructure/store/BookReducer';
+import { BookAddHandler } from '../command/domain/handlers/BookAddHandler';
+import { BookFetchHandler } from '../command/domain/handlers/BookFetchHandler';
+import { BookRepository } from '../query/domain/BookRepository';
+import { StoreBookAddHandler } from '../command/infrastructure/store/handlers/StoreBookAddHandler';
+import { StoreBookDeleteHandler } from '../command/infrastructure/store/handlers/StoreBookDeleteHandler';
+import { StoreBookFetchHandler } from '../command/infrastructure/store/handlers/StoreBookFetchHandler';
+import { StoreBookDispatcher } from '../command/infrastructure/store/StoreBookDispatcher';
 
 const providers: Array<Provider> = [
-	BookDispatcher,
-	BookHandler,
+	{
+		provide: BookDispatcher,
+		useClass: StoreBookDispatcher
+	},
 	{
 		provide: BookRepository,
 		useClass: StoreBookRepository
-	}
+	},
+	BookAddHandler,
+	BookDeleteHandler,
+	BookFetchHandler
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
 		StoreModule.forFeature('library', {
-			books: combineReducers(bookReducer)
+			books: bookReducer
 		}),
 		EffectsModule.forFeature([
-			BookHandler,
-			BookDeleteHandler
+			StoreBookAddHandler,
+			StoreBookDeleteHandler,
+			StoreBookFetchHandler
 		])
 	],
 	declarations: [
@@ -49,7 +60,7 @@ export class BookModule {
 				...rootProviders,
 				{
 					provide: BookResource,
-					useClass: RestBookCommandResource
+					useClass: RestBookResource
 				} as Provider];
 		}
 

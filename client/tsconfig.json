@@ -19,11 +19,9 @@
             "es2015.iterable"
         ],
         "types": [
-            "cucumber",
             "es6-shim",
             "jasmine",
-            "node",
-            "selenium-webdriver"
+            "node"
         ]
     },
     "exclude": [

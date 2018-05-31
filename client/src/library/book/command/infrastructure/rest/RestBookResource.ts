@@ -6,7 +6,7 @@ import { BookDTO } from '../../domain/BookDTO';
 
 
 @Injectable()
-export class RestBookCommandResource extends BookResource {
+export class RestBookResource extends BookResource {
 
 	constructor() {
 		super();
