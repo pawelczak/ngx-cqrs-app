@@ -17,7 +17,7 @@ export class BookFetchHandler {
 		return this.bookResource
 				   .fetchBooks()
 				   .pipe(
-					   map((books: Array<AnemicBook>) => {
+					   map((books: Array<BookDTO>) => {
 
 						   return books.map((book: AnemicBook) => {
 							   return this.createBook(book);
