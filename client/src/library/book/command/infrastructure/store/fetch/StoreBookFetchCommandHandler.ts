@@ -3,14 +3,14 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { BookFetchCommandHandler } from '../../../domain/fetch/BookFetchCommandHandler';
+import { FetchAllBooksCommandHandler } from '../../../domain/fetch/FetchAllBooksCommandHandler';
 import { ActionTypes, FetchAllBookFailureAction, FetchAllBookSuccessAction } from '../BookActions';
 
 @Injectable()
 export class StoreBookFetchCommandHandler {
 
 	constructor(private actions$: Actions,
-				private bookFetchHandler: BookFetchCommandHandler) {
+				private bookFetchHandler: FetchAllBooksCommandHandler) {
 	}
 
 	@Effect()

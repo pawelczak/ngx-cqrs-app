@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BookResource } from '../BookResource';
-import { BookDeleteCommand } from './BookDeleteCommand';
+import { DeleteBookCommand } from './DeleteBookCommands';
 
 @Injectable()
-export class BookDeleteCommandHandler {
+export class DeleteBookCommandHandler {
 
 	constructor(private bookResource: BookResource) {
 	}
 
-	execute(bookDeleteCommand: BookDeleteCommand): Observable<boolean> {
+	execute(deleteBookCommand: DeleteBookCommand): Observable<boolean> {
 
-		const title = bookDeleteCommand.title;
+		const title = deleteBookCommand.title;
 		return this.bookResource.deleteBook(title);
 	}
 }

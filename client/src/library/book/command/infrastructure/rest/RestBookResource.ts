@@ -12,7 +12,7 @@ export class RestBookResource extends BookResource {
 		super();
 	}
 
-	fetchBooks(): Observable<Array<BookAggregate>> {
+	fetchAll(): Observable<Array<BookAggregate>> {
 		return of(this.books);
 	}
 

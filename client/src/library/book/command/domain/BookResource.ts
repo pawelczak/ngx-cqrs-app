@@ -4,7 +4,7 @@ import { BookAggregate } from './BookAggregate';
 
 export abstract class BookResource {
 
-	abstract fetchBooks(): Observable<Array<BookAggregate>>;
+	abstract fetchAll(): Observable<Array<BookAggregate>>;
 
 	abstract addBook(title: string): Observable<BookAggregate>;
 

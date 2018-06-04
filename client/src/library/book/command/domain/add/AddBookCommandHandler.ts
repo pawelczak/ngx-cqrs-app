@@ -3,21 +3,20 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
-import { BookAddCommand } from './BookAddCommand';
 import { BookAggregate } from '../BookAggregate';
 import { BookDispatcher } from '../BookDispatcher';
-import { BookAddSuccessCommand } from './BookAddSuccessCommand';
+import { AddBookCommand, AddBookSuccessCommand } from './AddBookCommands';
 
 @Injectable()
-export class BookAddCommandHandler {
+export class AddCommandHandler {
 
 	constructor(private bookResource: BookResource,
 				private bookDispatcher: BookDispatcher) {
 	}
 
-	execute(bookAddCommand: BookAddCommand): Observable<void> {
+	execute(addBookCommand: AddBookCommand): Observable<void> {
 
-		const title = bookAddCommand.title;
+		const title = addBookCommand.title;
 
 		return this.bookResource.addBook(title)
 				   .pipe(
@@ -28,7 +27,7 @@ export class BookAddCommandHandler {
 						   return bookAggregate;
 					   }),
 					   tap((bookAggregate: BookAggregate) => {
-							this.bookDispatcher.dispatch(new BookAddSuccessCommand(bookAggregate));
+							this.bookDispatcher.dispatch(new AddBookSuccessCommand(bookAggregate));
 					   }),
 					   catchError((error) => {
 						   return of(error);

@@ -4,14 +4,14 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ActionTypes, DeleteBookFailureAction, DeleteBookSuccessAction } from '../BookActions';
-import { BookDeleteCommandHandler } from '../../../domain/delete/BookDeleteCommandHandler';
-import { BookDeleteCommand } from '../../../domain/delete/BookDeleteCommand';
+import { DeleteBookCommandHandler } from '../../../domain/delete/DeleteBookCommandHandler';
+import { DeleteBookCommand } from '../../../domain/delete/DeleteBookCommands';
 
 @Injectable()
 export class StoreBookDeleteCommandHandler {
 
 	constructor(private actions$: Actions,
-				private bookDeleteCommandHandler: BookDeleteCommandHandler) {
+				private bookDeleteCommandHandler: DeleteBookCommandHandler) {
 	}
 
 	@Effect()
@@ -19,7 +19,7 @@ export class StoreBookDeleteCommandHandler {
 					  .ofType(ActionTypes.DELETE_BOOK)
 					  .pipe(
 						  map((action: any) => action.payload),
-						  switchMap((bookDeleteCommand: BookDeleteCommand) => {
+						  switchMap((bookDeleteCommand: DeleteBookCommand) => {
 							  return this.bookDeleteCommandHandler
 										 .execute(bookDeleteCommand)
 										 .pipe(

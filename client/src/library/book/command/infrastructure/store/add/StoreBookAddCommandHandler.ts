@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { ActionTypes, AddBookFailureAction, AddBookSuccessAction } from '../BookActions';
-import { BookAddCommandHandler } from '../../../domain/add/BookAddCommandHandler';
-import { BookAddCommand } from '../../../domain/add/BookAddCommand';
+import { ActionTypes} from '../BookActions';
+import { AddCommandHandler } from '../../../domain/add/AddBookCommandHandler';
+import { AddBookCommand } from '../../../domain/add/AddBookCommands';
 
 @Injectable()
 export class StoreBookAddCommandHandler {
 
 	constructor(private actions$: Actions,
-				private bookAddCommandHandler: BookAddCommandHandler) {
+				private bookAddCommandHandler: AddCommandHandler) {
 	}
 
 	@Effect({ dispatch: false })
@@ -19,7 +19,7 @@ export class StoreBookAddCommandHandler {
 				   .ofType(ActionTypes.ADD_BOOK)
 				   .pipe(
 					   map((action: any) => action.payload),
-					   switchMap((addCommand: BookAddCommand) => {
+					   switchMap((addCommand: AddBookCommand) => {
 
 						   return this.bookAddCommandHandler.execute(addCommand)
 									  .pipe(

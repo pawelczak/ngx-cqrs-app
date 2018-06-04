@@ -5,8 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 import { BookDispatcher } from '../../command/domain/BookDispatcher';
 import { Book } from '../../query/domain/Book';
 import { BookRepository } from '../../query/domain/BookRepository';
-import { BookAddCommand } from '../../command/domain/add/BookAddCommand';
-import { BookDeleteCommand } from '../../command/domain/delete/BookDeleteCommand';
+import { DeleteBookCommand } from '../../command/domain/delete/DeleteBookCommands';
+import { AddBookCommand } from '../../command/domain/add/AddBookCommands';
+import { FetchAllBooksCommand } from '../../command/domain/fetch/FetchBookCommands';
 
 @Component({
 	selector: 'app-book',
@@ -42,15 +43,15 @@ export class BookComponent implements OnInit, OnDestroy {
 	}
 
 	addBook(): void {
-		this.bookDispatcher.addBook(new BookAddCommand('New Book' + Date.now()));
+		this.bookDispatcher.dispatch(new AddBookCommand('New Book' + Date.now()));
 	}
 
 	deleteBook(book: Book): void {
-		this.bookDispatcher.deleteBook(new BookDeleteCommand(book.title));
+		this.bookDispatcher.dispatch(new DeleteBookCommand(book.title));
 	}
 
 	private initSaga(): void {
-		this.bookDispatcher.fetchBooks();
+		this.bookDispatcher.dispatch(new FetchAllBooksCommand());
 	}
 
 }
