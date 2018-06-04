@@ -7,12 +7,12 @@ import { AnemicBook } from '../AnemicBook';
 import { BookDTO } from '../BookDTO';
 
 @Injectable()
-export class BookFetchHandler {
+export class BookFetchCommandHandler {
 
 	constructor(private bookResource: BookResource) {
 	}
 
-	handleFetch(): Observable<Array<AnemicBook>> {
+	execute(): Observable<Array<AnemicBook>> {
 
 		return this.bookResource
 				   .fetchBooks()

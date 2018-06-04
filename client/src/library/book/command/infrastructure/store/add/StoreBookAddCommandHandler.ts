@@ -1,35 +1,29 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ActionTypes, AddBookFailureAction, AddBookSuccessAction } from '../BookActions';
-import { BookAddHandler } from '../../../domain/add/BookAddHandler';
+import { BookAddCommandHandler } from '../../../domain/add/BookAddCommandHandler';
 import { BookAddCommand } from '../../../domain/add/BookAddCommand';
 
 @Injectable()
-export class StoreBookAddHandler {
+export class StoreBookAddCommandHandler {
 
 	constructor(private actions$: Actions,
-				private bookAddHandler: BookAddHandler) {
+				private bookAddCommandHandler: BookAddCommandHandler) {
 	}
 
-	@Effect()
+	@Effect({ dispatch: false })
 	addBook$ = this.actions$
 				   .ofType(ActionTypes.ADD_BOOK)
 				   .pipe(
 					   map((action: any) => action.payload),
 					   switchMap((addCommand: BookAddCommand) => {
 
-						   return this.bookAddHandler
-									  .handleAddCommand(addCommand)
+						   return this.bookAddCommandHandler.execute(addCommand)
 									  .pipe(
-										  map((books: any) => {
-											  return new AddBookSuccessAction(books);
-										  }),
-										  catchError((error: any) => {
-											  return of(new AddBookFailureAction(error));
-										  })
+										  switchMap(() => of(null))
 									  );
 					   })
 				   );

@@ -5,12 +5,12 @@ import { BookResource } from '../BookResource';
 import { BookDeleteCommand } from './BookDeleteCommand';
 
 @Injectable()
-export class BookDeleteHandler {
+export class BookDeleteCommandHandler {
 
 	constructor(private bookResource: BookResource) {
 	}
 
-	handleDeleteCommand(bookDeleteCommand: BookDeleteCommand): Observable<boolean> {
+	execute(bookDeleteCommand: BookDeleteCommand): Observable<boolean> {
 
 		const title = bookDeleteCommand.title;
 		return this.bookResource.deleteBook(title);

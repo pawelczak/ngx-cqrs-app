@@ -6,16 +6,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { BookResource } from '../command/domain/BookResource';
 import { RestBookResource } from '../command/infrastructure/rest/RestBookResource';
 import { BookDispatcher } from '../command/domain/BookDispatcher';
-import { BookDeleteHandler } from '../command/domain/delete/BookDeleteHandler';
+import { BookDeleteCommandHandler } from '../command/domain/delete/BookDeleteCommandHandler';
 import { BookComponent } from './book/BookComponent';
 import { StoreBookRepository } from '../query/infrastructure/store/StoreBookRepository';
 import { bookReducer } from '../command/infrastructure/store/BookReducer';
-import { BookAddHandler } from '../command/domain/add/BookAddHandler';
-import { BookFetchHandler } from '../command/domain/fetch/BookFetchHandler';
+import { BookAddCommandHandler } from '../command/domain/add/BookAddCommandHandler';
+import { BookFetchCommandHandler } from '../command/domain/fetch/BookFetchCommandHandler';
 import { BookRepository } from '../query/domain/BookRepository';
-import { StoreBookAddHandler } from '../command/infrastructure/store/handlers/StoreBookAddHandler';
-import { StoreBookDeleteHandler } from '../command/infrastructure/store/handlers/StoreBookDeleteHandler';
-import { StoreBookFetchHandler } from '../command/infrastructure/store/handlers/StoreBookFetchHandler';
+import { StoreBookAddCommandHandler } from '../command/infrastructure/store/add/StoreBookAddCommandHandler';
+import { StoreBookDeleteCommandHandler } from '../command/infrastructure/store/delete/StoreBookDeleteCommandHandler';
+import { StoreBookFetchCommandHandler } from '../command/infrastructure/store/fetch/StoreBookFetchCommandHandler';
 import { StoreBookDispatcher } from '../command/infrastructure/store/StoreBookDispatcher';
 
 const providers: Array<Provider> = [
@@ -27,9 +27,9 @@ const providers: Array<Provider> = [
 		provide: BookRepository,
 		useClass: StoreBookRepository
 	},
-	BookAddHandler,
-	BookDeleteHandler,
-	BookFetchHandler
+	BookAddCommandHandler,
+	BookDeleteCommandHandler,
+	BookFetchCommandHandler
 ];
 
 @NgModule({
@@ -39,9 +39,9 @@ const providers: Array<Provider> = [
 			books: bookReducer
 		}),
 		EffectsModule.forFeature([
-			StoreBookAddHandler,
-			StoreBookDeleteHandler,
-			StoreBookFetchHandler
+			StoreBookAddCommandHandler,
+			StoreBookDeleteCommandHandler,
+			StoreBookFetchCommandHandler
 		])
 	],
 	declarations: [
