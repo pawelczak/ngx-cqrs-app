@@ -4,9 +4,9 @@ import { AnemicBook } from './AnemicBook';
 const PREFIX = '[Books]';
 
 export const ActionTypes = {
-	FETCH_ALL_BOOK: `${PREFIX}FETCH_ALL_BOOK`,
-	FETCH_ALL_BOOK_SUCCESS: `${PREFIX}FETCH_ALL_BOOK_SUCCESS`,
-	FETCH_ALL_BOOK_FAILURE: `${PREFIX}FETCH_ALL_BOOK_FAILURE`,
+	FETCH_ALL_BOOKS: `${PREFIX}FETCH_ALL_BOOKS`,
+	FETCH_ALL_BOOKS_SUCCESS: `${PREFIX}FETCH_ALL_BOOKS_SUCCESS`,
+	FETCH_ALL_BOOKS_FAILURE: `${PREFIX}FETCH_ALL_BOOKS_FAILURE`,
 
 	ADD_BOOK: `${PREFIX}ADD_BOOK`,
 	ADD_BOOK_SUCCESS: `${PREFIX}ADD_BOOK_SUCCESS`,
@@ -17,22 +17,22 @@ export const ActionTypes = {
 	DELETE_BOOK_FAILURE: `${PREFIX}DELETE_BOOK_FAILURE`
 };
 
-export class FetchAllBookAction implements Action {
-	readonly type = ActionTypes.FETCH_ALL_BOOK;
+export class FetchAllBooksAction implements Action {
+	readonly type = ActionTypes.FETCH_ALL_BOOKS;
 
 	constructor(public payload?: any) {
 	}
 }
 
-export class FetchAllBookSuccessAction implements Action {
-	readonly type = ActionTypes.FETCH_ALL_BOOK_SUCCESS;
+export class FetchAllBooksSuccessAction implements Action {
+	readonly type = ActionTypes.FETCH_ALL_BOOKS_SUCCESS;
 
 	constructor(public payload?: any) {
 	}
 }
 
-export class FetchAllBookFailureAction implements Action {
-	readonly type = ActionTypes.FETCH_ALL_BOOK_FAILURE;
+export class FetchAllBooksFailureAction implements Action {
+	readonly type = ActionTypes.FETCH_ALL_BOOKS_FAILURE;
 
 	constructor(public payload?: any) {
 	}
@@ -80,9 +80,9 @@ export class DeleteBookFailureAction implements Action {
 	}
 }
 
-export type Actions = FetchAllBookAction |
-	FetchAllBookSuccessAction |
-	FetchAllBookFailureAction |
+export type Actions = FetchAllBooksAction |
+	FetchAllBooksSuccessAction |
+	FetchAllBooksFailureAction |
 	AddBookAction |
 	AddBookSuccessAction |
 	AddBookFailureAction |

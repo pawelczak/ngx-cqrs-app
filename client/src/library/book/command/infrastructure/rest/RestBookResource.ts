@@ -20,12 +20,12 @@ export class RestBookResource extends BookResource {
 		return of(new BookAggregate(title));
 	}
 
-	updateBook(title: string): Observable<boolean> {
-		return of(true);
+	updateBook(title: string): Observable<void> {
+		return of(null);
 	}
 
-	deleteBook(title: string): Observable<boolean> {
-		return of(true);
+	deleteBook(title: string): Observable<void> {
+		return of(null);
 	}
 
 	private books = [

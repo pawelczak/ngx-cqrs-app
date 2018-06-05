@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
 import { BookAggregate } from '../BookAggregate';
+import { FetchAllBooksSuccessCommand } from './FetchBookCommands';
+import { BookDispatcher } from '../BookDispatcher';
 
 @Injectable()
 export class FetchAllBooksCommandHandler {
 
-	constructor(private bookResource: BookResource) {
+	constructor(private bookResource: BookResource,
+				private bookDispatcher: BookDispatcher) {
 	}
 
 	execute(): Observable<Array<BookAggregate>> {
@@ -23,6 +26,12 @@ export class FetchAllBooksCommandHandler {
 						   });
 
 						   return books;
+					   }),
+					   tap((books: Array<BookAggregate>) => {
+						   this.bookDispatcher.dispatch(new FetchAllBooksSuccessCommand(books));
+					   }),
+					   catchError((error) => {
+						   return of(error);
 					   })
 				   );
 	}

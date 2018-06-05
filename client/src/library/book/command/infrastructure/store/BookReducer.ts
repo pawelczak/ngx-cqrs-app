@@ -7,11 +7,11 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 
 	switch (action.type) {
 
-		case Actions.ActionTypes.FETCH_ALL_BOOK:
+		case Actions.ActionTypes.FETCH_ALL_BOOKS:
 
 			return Object.assign(new BookState(), state, { fetching: true });
 
-		case Actions.ActionTypes.FETCH_ALL_BOOK_SUCCESS:
+		case Actions.ActionTypes.FETCH_ALL_BOOKS_SUCCESS:
 
 			console.log(action.payload);
 
@@ -19,7 +19,7 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 
 			return Object.assign(new BookState(), state, { books: allBooks, fetching: false, fetched: true });
 
-		case Actions.ActionTypes.FETCH_ALL_BOOK_FAILURE:
+		case Actions.ActionTypes.FETCH_ALL_BOOKS_FAILURE:
 
 			return Object.assign(new BookState(), state, { fetching: false });
 
@@ -28,7 +28,6 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 			const newBook = action.payload;
 
 			return Object.assign(new BookState(), state, { books: [...state.books, newBook] });
-
 
 		case Actions.ActionTypes.DELETE_BOOK_SUCCESS:
 

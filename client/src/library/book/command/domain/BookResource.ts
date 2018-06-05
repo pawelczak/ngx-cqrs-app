@@ -8,7 +8,7 @@ export abstract class BookResource {
 
 	abstract addBook(title: string): Observable<BookAggregate>;
 
-	abstract updateBook(title: string): Observable<boolean>;
+	abstract updateBook(title: string): Observable<void>;
 
-	abstract deleteBook(title: string): Observable<boolean>;
+	abstract deleteBook(title: string): Observable<void>;
 }

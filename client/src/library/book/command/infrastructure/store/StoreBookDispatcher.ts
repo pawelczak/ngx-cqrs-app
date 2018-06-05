@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { BookDispatcher } from '../../domain/BookDispatcher';
-import * as BookActions from './BookActions';
-import { DeleteBookCommand } from '../../domain/delete/DeleteBookCommands';
 import { Command } from '../../../../../util/cqrs/Command';
-import { AddBookSuccessAction } from './BookActions';
+import { AddBookSuccessAction, DeleteBookSuccessAction, FetchAllBooksAction, FetchAllBooksSuccessAction } from './BookActions';
 import { AnemicBook } from './AnemicBook';
 import { AddBookCommand, AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
+import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
+import { FetchAllBooksCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
 
 
 @Injectable()
@@ -26,18 +26,27 @@ export class StoreBookDispatcher extends BookDispatcher {
 
 			this.store.dispatch(new AddBookSuccessAction(anemicBook));
 		}
-	}
 
-	fetchBooks(): void {
-		this.store.dispatch(new BookActions.FetchAllBookAction());
-	}
+		if (command instanceof DeleteBookSuccessCommand) {
 
-	addBook(bookAddCommand: AddBookCommand): void {
-		this.store.dispatch(new BookActions.AddBookAction(bookAddCommand));
-	}
+			const title = (command as DeleteBookSuccessCommand).title;
 
-	deleteBook(bookDeleteCommand: DeleteBookCommand): void {
-		this.store.dispatch(new BookActions.DeleteBookAction(bookDeleteCommand));
+			this.store.dispatch(new DeleteBookSuccessAction(title));
+		}
+
+		if (command instanceof FetchAllBooksCommand) {
+
+			this.store.dispatch(new FetchAllBooksAction());
+		}
+
+		if (command instanceof FetchAllBooksSuccessCommand) {
+
+			const aggregates = (command as FetchAllBooksSuccessCommand).bookAggregates,
+				anemicBooks = AnemicBook.fromArrayAggregate(aggregates);
+
+			this.store.dispatch(new FetchAllBooksSuccessAction(anemicBooks));
+		}
+
 	}
 
 }
