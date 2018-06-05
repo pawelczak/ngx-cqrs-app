@@ -4,3 +4,4 @@ export class AnemicBook {
 				public rating: number) {}
 
 }
+

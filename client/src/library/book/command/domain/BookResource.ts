@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs';
 
-import { BookDTO } from './BookDTO';
+import { BookAggregate } from './BookAggregate';
 
 export abstract class BookResource {
 
-	abstract fetchBooks(): Observable<Array<BookDTO>>;
+	abstract fetchBooks(): Observable<Array<BookAggregate>>;
 
-	abstract addBook(title: string): Observable<BookDTO>;
+	abstract addBook(title: string): Observable<BookAggregate>;
 
 	abstract updateBook(title: string): Observable<boolean>;
 

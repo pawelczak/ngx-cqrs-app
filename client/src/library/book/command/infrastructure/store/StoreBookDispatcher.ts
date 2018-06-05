@@ -8,6 +8,7 @@ import { BookDeleteCommand } from '../../domain/delete/BookDeleteCommand';
 import { Command } from '../../../../../util/cqrs/Command';
 import { BookAddSuccessCommand } from '../../domain/add/BookAddSuccessCommand';
 import { AddBookSuccessAction } from './BookActions';
+import { AnemicBook } from './AnemicBook';
 
 
 @Injectable()
@@ -20,7 +21,11 @@ export class StoreBookDispatcher extends BookDispatcher {
 	dispatch(command: Command): void {
 
 		if (command instanceof BookAddSuccessCommand) {
-			this.store.dispatch(new AddBookSuccessAction((command as BookAddSuccessCommand).anemicBook));
+
+			const aggregate = (command as BookAddSuccessCommand).bookAggregate,
+				anemicBook = new AnemicBook(aggregate.title, aggregate.rating);
+
+			this.store.dispatch(new AddBookSuccessAction(anemicBook));
 		}
 	}
 

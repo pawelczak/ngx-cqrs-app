@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { BookResource } from '../../domain/BookResource';
-import { BookDTO } from '../../domain/BookDTO';
+import { BookAggregate } from '../../domain/BookAggregate';
 
 
 @Injectable()
@@ -12,12 +12,12 @@ export class RestBookResource extends BookResource {
 		super();
 	}
 
-	fetchBooks(): Observable<Array<BookDTO>> {
+	fetchBooks(): Observable<Array<BookAggregate>> {
 		return of(this.books);
 	}
 
-	addBook(title: string): Observable<BookDTO> {
-		return of(new BookDTO(title));
+	addBook(title: string): Observable<BookAggregate> {
+		return of(new BookAggregate(title));
 	}
 
 	updateBook(title: string): Observable<boolean> {
@@ -29,8 +29,8 @@ export class RestBookResource extends BookResource {
 	}
 
 	private books = [
-		new BookDTO('Gone with the wind'),
-		new BookDTO('Lord of the Flies'),
-		new BookDTO('The Hobbit')
+		new BookAggregate('Gone with the wind'),
+		new BookAggregate('Lord of the Flies'),
+		new BookAggregate('The Hobbit')
 	]
 }

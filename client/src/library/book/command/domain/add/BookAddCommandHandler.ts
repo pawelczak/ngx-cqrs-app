@@ -3,9 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
-import { BookDTO } from '../BookDTO';
 import { BookAddCommand } from './BookAddCommand';
-import { AnemicBook } from '../AnemicBook';
 import { BookAggregate } from '../BookAggregate';
 import { BookDispatcher } from '../BookDispatcher';
 import { BookAddSuccessCommand } from './BookAddSuccessCommand';
@@ -23,15 +21,14 @@ export class BookAddCommandHandler {
 
 		return this.bookResource.addBook(title)
 				   .pipe(
-					   map((book: BookDTO) => {
+					   map((bookAggregate: BookAggregate) => {
 
-						   const bookAggregate = new BookAggregate(book.title);
 						   bookAggregate.calculateRating();
 
-						   return new AnemicBook(bookAggregate.title, bookAggregate.rating);
+						   return bookAggregate;
 					   }),
-					   tap((anemicBook: AnemicBook) => {
-							this.bookDispatcher.dispatch(new BookAddSuccessCommand(anemicBook));
+					   tap((bookAggregate: BookAggregate) => {
+							this.bookDispatcher.dispatch(new BookAddSuccessCommand(bookAggregate));
 					   }),
 					   catchError((error) => {
 						   return of(error);

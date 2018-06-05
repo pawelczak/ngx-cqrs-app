@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
-import { AnemicBook } from '../AnemicBook';
-import { BookDTO } from '../BookDTO';
+import { AnemicBook } from '../../infrastructure/store/AnemicBook';
+import { BookDTO } from '../../infrastructure/rest/BookDTO';
 
 @Injectable()
 export class BookFetchCommandHandler {

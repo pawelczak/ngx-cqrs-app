@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnemicBook } from '../../../command/domain/AnemicBook';
+import { AnemicBook } from '../../../command/infrastructure/store/AnemicBook';
 import { BookRepository } from '../../domain/BookRepository';
 import { Book } from '../../domain/Book';
 

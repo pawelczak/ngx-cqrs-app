@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { AnemicBook } from './AnemicBook';
 
 const PREFIX = '[Books]';
 
@@ -47,7 +48,7 @@ export class AddBookAction implements Action {
 export class AddBookSuccessAction implements Action {
 	readonly type = ActionTypes.ADD_BOOK_SUCCESS;
 
-	constructor(public payload?: any) {
+	constructor(public payload: AnemicBook) {
 	}
 }
 

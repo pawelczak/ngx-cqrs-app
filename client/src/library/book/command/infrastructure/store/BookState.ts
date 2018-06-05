@@ -1,5 +1,5 @@
 import { State } from '../../../../../util/store/State';
-import { AnemicBook } from '../../domain/AnemicBook';
+import { AnemicBook } from './AnemicBook';
 
 export class BookState extends State {
 

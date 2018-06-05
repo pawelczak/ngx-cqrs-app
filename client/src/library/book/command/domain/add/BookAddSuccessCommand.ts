@@ -1,8 +1,8 @@
 import { Command } from '../../../../../util/cqrs/Command';
-import { AnemicBook } from '../AnemicBook';
+import { BookAggregate } from '../BookAggregate';
 
 export class BookAddSuccessCommand implements Command {
 
-	constructor(public anemicBook: AnemicBook) {}
+	constructor(public bookAggregate: BookAggregate) {}
 
 }
