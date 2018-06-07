@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 
 import { BookDispatcher } from '../../domain/BookDispatcher';
 import { Command } from '../../../../../util/cqrs/Command';
@@ -34,19 +34,25 @@ export class StoreBookDispatcher extends BookDispatcher {
 			this.store.dispatch(new DeleteBookSuccessAction(title));
 		}
 
-		if (command instanceof FetchAllBooksCommand) {
+		this.dispatchFetchSuccess(command);
 
-			this.store.dispatch(new FetchAllBooksAction());
-		}
 
+		const action = {
+			type: command.constructor.name,
+			payload: command
+		} as Action;
+
+		this.store.dispatch(action);
+
+	}
+
+	private dispatchFetchSuccess(command: Command): void {
 		if (command instanceof FetchAllBooksSuccessCommand) {
 
 			const aggregates = (command as FetchAllBooksSuccessCommand).bookAggregates,
 				anemicBooks = AnemicBook.fromArrayAggregate(aggregates);
 
-			this.store.dispatch(new FetchAllBooksSuccessAction(anemicBooks));
+			this.store.dispatch({ type: FetchAllBooksSuccessCommand.name });
 		}
-
 	}
-
 }

@@ -4,7 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
 import { BookAggregate } from '../BookAggregate';
-import { FetchAllBooksSuccessCommand } from './FetchBookCommands';
+import { FetchAllBooksFailureCommand, FetchAllBooksSuccessCommand } from './FetchBookCommands';
 import { BookDispatcher } from '../BookDispatcher';
 
 @Injectable()
@@ -28,9 +28,11 @@ export class FetchAllBooksCommandHandler {
 						   return books;
 					   }),
 					   tap((books: Array<BookAggregate>) => {
+
 						   this.bookDispatcher.dispatch(new FetchAllBooksSuccessCommand(books));
 					   }),
 					   catchError((error) => {
+						   this.bookDispatcher.dispatch(new FetchAllBooksFailureCommand(error));
 						   return of(error);
 					   })
 				   );

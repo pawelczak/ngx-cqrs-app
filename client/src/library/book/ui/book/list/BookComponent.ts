@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BookDispatcher } from '../../command/domain/BookDispatcher';
-import { Book } from '../../query/domain/Book';
-import { BookRepository } from '../../query/domain/BookRepository';
-import { DeleteBookCommand } from '../../command/domain/delete/DeleteBookCommands';
-import { AddBookCommand } from '../../command/domain/add/AddBookCommands';
-import { FetchAllBooksCommand } from '../../command/domain/fetch/FetchBookCommands';
+import { BookDispatcher } from '../../../command/domain/BookDispatcher';
+import { Book } from '../../../query/domain/Book';
+import { BookRepository } from '../../../query/domain/BookRepository';
+import { DeleteBookCommand } from '../../../command/domain/delete/DeleteBookCommands';
+import { AddBookCommand } from '../../../command/domain/add/AddBookCommands';
+import { FetchAllBooksCommand } from '../../../command/domain/fetch/FetchBookCommands';
 
 @Component({
 	selector: 'app-book',

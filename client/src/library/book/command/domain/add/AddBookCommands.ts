@@ -3,17 +3,23 @@ import { Command } from '../../../../../util/cqrs/Command';
 import { BookAggregate } from '../BookAggregate';
 
 
-export class AddBookCommand implements Command {
+export class AddBookCommand extends Command {
 
-	constructor(public title: string) {}
+	constructor(public title: string) {
+		super();
+	}
 }
 
-export class AddBookSuccessCommand implements Command {
+export class AddBookSuccessCommand extends Command {
 
-	constructor(public bookAggregate: BookAggregate) {}
+	constructor(public bookAggregate: BookAggregate) {
+		super();
+	}
 }
 
-export class AddBookFailureCommand implements Command {
+export class AddBookFailureCommand extends Command {
 
-	constructor(public error: string) {}
+	constructor(public error: string) {
+		super();
+	}
 }

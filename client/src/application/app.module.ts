@@ -6,7 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
-import { BookModule } from '../library/book/ui/BookModule';
+import { BookModule } from '../library/book/ui/book/list/BookModule';
 import { AppComponent } from './app.component';
 
 @NgModule({

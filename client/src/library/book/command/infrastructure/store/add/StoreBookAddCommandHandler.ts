@@ -6,6 +6,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ActionTypes} from '../BookActions';
 import { AddCommandHandler } from '../../../domain/add/AddBookCommandHandler';
 import { AddBookCommand } from '../../../domain/add/AddBookCommands';
+import { FetchAllBooksCommand } from '../../../domain/fetch/FetchBookCommands';
 
 @Injectable()
 export class StoreBookAddCommandHandler {
@@ -16,7 +17,7 @@ export class StoreBookAddCommandHandler {
 
 	@Effect({ dispatch: false })
 	addBook$ = this.actions$
-				   .ofType(ActionTypes.ADD_BOOK)
+				   .ofType(AddBookCommand.type)
 				   .pipe(
 					   map((action: any) => action.payload),
 					   switchMap((addCommand: AddBookCommand) => {

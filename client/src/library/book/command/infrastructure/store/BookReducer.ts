@@ -1,17 +1,19 @@
 import { BookState } from './BookState';
+import { FetchAllBooksCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
 import * as Actions from './BookActions';
 
 const defaultState = new BookState();
 
 export function bookReducer(state: BookState = defaultState, action: Actions.Actions): BookState {
 
+
 	switch (action.type) {
 
-		case Actions.ActionTypes.FETCH_ALL_BOOKS:
+		case FetchAllBooksCommand.type:
 
 			return Object.assign(new BookState(), state, { fetching: true });
 
-		case Actions.ActionTypes.FETCH_ALL_BOOKS_SUCCESS:
+		case FetchAllBooksSuccessCommand.type:
 
 			console.log(action.payload);
 
