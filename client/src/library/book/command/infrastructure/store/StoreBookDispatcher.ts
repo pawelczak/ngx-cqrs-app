@@ -3,11 +3,10 @@ import { Action, Store } from '@ngrx/store';
 
 import { BookDispatcher } from '../../domain/BookDispatcher';
 import { Command } from '../../../../../util/cqrs/Command';
-import { AddBookSuccessAction, DeleteBookSuccessAction, FetchAllBooksAction, FetchAllBooksSuccessAction } from './BookActions';
 import { AnemicBook } from './AnemicBook';
-import { AddBookCommand, AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
 import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
-import { FetchAllBooksCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
+import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
+import { FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
 
 
 @Injectable()
@@ -24,18 +23,31 @@ export class StoreBookDispatcher extends BookDispatcher {
 			const aggregate = (command as AddBookSuccessCommand).bookAggregate,
 				anemicBook = new AnemicBook(aggregate.title, aggregate.rating);
 
-			this.store.dispatch(new AddBookSuccessAction(anemicBook));
+			const addAction = {
+				type: command.constructor.name,
+				payload: anemicBook
+			} as Action;
+
+			this.store.dispatch(addAction);
+
+			return;
 		}
 
 		if (command instanceof DeleteBookSuccessCommand) {
 
-			const title = (command as DeleteBookSuccessCommand).title;
+			this.store.dispatch({
+				type: command.constructor.name,
+				payload: (command as DeleteBookSuccessCommand).title
+			});
 
-			this.store.dispatch(new DeleteBookSuccessAction(title));
+			return;
 		}
 
-		this.dispatchFetchSuccess(command);
+		if (command instanceof FetchAllBooksSuccessCommand) {
+			this.dispatchFetchSuccess(command);
 
+			return;
+		}
 
 		const action = {
 			type: command.constructor.name,
@@ -43,16 +55,13 @@ export class StoreBookDispatcher extends BookDispatcher {
 		} as Action;
 
 		this.store.dispatch(action);
-
 	}
 
 	private dispatchFetchSuccess(command: Command): void {
-		if (command instanceof FetchAllBooksSuccessCommand) {
 
-			const aggregates = (command as FetchAllBooksSuccessCommand).bookAggregates,
-				anemicBooks = AnemicBook.fromArrayAggregate(aggregates);
+		const aggregates = (command as FetchAllBooksSuccessCommand).bookAggregates,
+			anemicBooks = AnemicBook.fromArrayAggregate(aggregates);
 
-			this.store.dispatch({ type: FetchAllBooksSuccessCommand.name });
-		}
+		this.store.dispatch({ type: FetchAllBooksSuccessCommand.name, payload: anemicBooks });
 	}
 }

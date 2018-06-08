@@ -1,18 +1,16 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
-import { ActionTypes} from '../BookActions';
-import { AddCommandHandler } from '../../../domain/add/AddBookCommandHandler';
+import { AddBookCommandHandler } from '../../../domain/add/AddBookCommandHandler';
 import { AddBookCommand } from '../../../domain/add/AddBookCommands';
-import { FetchAllBooksCommand } from '../../../domain/fetch/FetchBookCommands';
 
 @Injectable()
 export class StoreBookAddCommandHandler {
 
 	constructor(private actions$: Actions,
-				private bookAddCommandHandler: AddCommandHandler) {
+				private bookAddCommandHandler: AddBookCommandHandler) {
 	}
 
 	@Effect({ dispatch: false })

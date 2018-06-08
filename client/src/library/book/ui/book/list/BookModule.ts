@@ -10,7 +10,7 @@ import { DeleteBookCommandHandler } from '../../../command/domain/delete/DeleteB
 import { BookComponent } from './BookComponent';
 import { StoreBookRepository } from '../../../query/infrastructure/store/StoreBookRepository';
 import { bookReducer } from '../../../command/infrastructure/store/BookReducer';
-import { AddCommandHandler } from '../../../command/domain/add/AddBookCommandHandler';
+import { AddBookCommandHandler } from '../../../command/domain/add/AddBookCommandHandler';
 import { FetchAllBooksCommandHandler } from '../../../command/domain/fetch/FetchAllBooksCommandHandler';
 import { BookRepository } from '../../../query/domain/BookRepository';
 import { StoreBookAddCommandHandler } from '../../../command/infrastructure/store/add/StoreBookAddCommandHandler';
@@ -27,7 +27,7 @@ const providers: Array<Provider> = [
 		provide: BookRepository,
 		useClass: StoreBookRepository
 	},
-	AddCommandHandler,
+	AddBookCommandHandler,
 	DeleteBookCommandHandler,
 	FetchAllBooksCommandHandler
 ];

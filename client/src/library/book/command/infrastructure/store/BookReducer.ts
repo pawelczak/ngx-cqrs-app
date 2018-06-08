@@ -1,11 +1,11 @@
 import { BookState } from './BookState';
-import { FetchAllBooksCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
-import * as Actions from './BookActions';
+import { FetchAllBooksCommand, FetchAllBooksFailureCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
+import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
+import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
 
 const defaultState = new BookState();
 
-export function bookReducer(state: BookState = defaultState, action: Actions.Actions): BookState {
-
+export function bookReducer(state: BookState = defaultState, action: any): BookState {
 
 	switch (action.type) {
 
@@ -15,23 +15,21 @@ export function bookReducer(state: BookState = defaultState, action: Actions.Act
 
 		case FetchAllBooksSuccessCommand.type:
 
-			console.log(action.payload);
-
 			const allBooks = [...action.payload];
 
 			return Object.assign(new BookState(), state, { books: allBooks, fetching: false, fetched: true });
 
-		case Actions.ActionTypes.FETCH_ALL_BOOKS_FAILURE:
+		case FetchAllBooksFailureCommand.type:
 
 			return Object.assign(new BookState(), state, { fetching: false });
 
-		case Actions.ActionTypes.ADD_BOOK_SUCCESS:
+		case AddBookSuccessCommand.type:
 
 			const newBook = action.payload;
 
 			return Object.assign(new BookState(), state, { books: [...state.books, newBook] });
 
-		case Actions.ActionTypes.DELETE_BOOK_SUCCESS:
+		case DeleteBookSuccessCommand.type:
 
 			const deletedBookTitle = action.payload;
 

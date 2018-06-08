@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
 import { BookAggregate } from '../BookAggregate';
 import { BookDispatcher } from '../BookDispatcher';
-import { AddBookCommand, AddBookSuccessCommand } from './AddBookCommands';
+import { AddBookCommand, AddBookFailureCommand, AddBookSuccessCommand } from './AddBookCommands';
 
 @Injectable()
-export class AddCommandHandler {
+export class AddBookCommandHandler {
 
 	constructor(private bookResource: BookResource,
 				private bookDispatcher: BookDispatcher) {
@@ -20,17 +20,16 @@ export class AddCommandHandler {
 
 		return this.bookResource.addBook(title)
 				   .pipe(
-					   map((bookAggregate: BookAggregate) => {
+					   tap((bookAggregate: BookAggregate) => {
 
 						   bookAggregate.calculateRating();
 
-						   return bookAggregate;
+						   this.bookDispatcher.dispatch(new AddBookSuccessCommand(bookAggregate));
 					   }),
-					   tap((bookAggregate: BookAggregate) => {
-							this.bookDispatcher.dispatch(new AddBookSuccessCommand(bookAggregate));
-					   }),
+					   map(() => null),
 					   catchError((error) => {
-						   return of(error);
+						   this.bookDispatcher.dispatch(new AddBookFailureCommand(error));
+						   return EMPTY;
 					   })
 				   );
 	}

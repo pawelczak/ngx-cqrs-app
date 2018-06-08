@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
-import { DeleteBookCommand, DeleteBookSuccessCommand } from './DeleteBookCommands';
+import { DeleteBookCommand, DeleteBookFailureCommand, DeleteBookSuccessCommand } from './DeleteBookCommands';
 import { BookDispatcher } from '../BookDispatcher';
 
 @Injectable()
@@ -23,8 +23,10 @@ export class DeleteBookCommandHandler {
 					   tap(() => {
 						   this.bookDispatcher.dispatch(new DeleteBookSuccessCommand(title));
 					   }),
+					   map(() => null),
 					   catchError((error) => {
-						   return of(error);
+						   this.bookDispatcher.dispatch(new DeleteBookFailureCommand(error));
+						   return EMPTY;
 					   })
 				   );
 	}

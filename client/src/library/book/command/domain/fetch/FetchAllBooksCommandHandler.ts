@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
@@ -19,21 +19,18 @@ export class FetchAllBooksCommandHandler {
 		return this.bookResource
 				   .fetchAll()
 				   .pipe(
-					   map((books: Array<BookAggregate>) => {
+					   tap((aggregates: Array<BookAggregate>) => {
 
-						   books.forEach((bookAggregate: BookAggregate) => {
+						   aggregates.forEach((bookAggregate: BookAggregate) => {
 							   bookAggregate.calculateRating();
 						   });
 
-						   return books;
+						   this.bookDispatcher.dispatch(new FetchAllBooksSuccessCommand(aggregates));
 					   }),
-					   tap((books: Array<BookAggregate>) => {
-
-						   this.bookDispatcher.dispatch(new FetchAllBooksSuccessCommand(books));
-					   }),
+					   map(() => null),
 					   catchError((error) => {
 						   this.bookDispatcher.dispatch(new FetchAllBooksFailureCommand(error));
-						   return of(error);
+						   return EMPTY;
 					   })
 				   );
 	}
