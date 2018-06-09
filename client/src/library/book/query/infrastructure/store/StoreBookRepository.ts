@@ -21,14 +21,14 @@ export class StoreBookRepository extends BookRepository {
 				   .pipe(
 						// BookAnemia only link between command and query
 						// Selectors can probably handle this issue
-				   		map((books: Array<AnemicBook>) => {
+				   		map((entities: {[key:number]: AnemicBook}) => {
 							let newBooks: Array<Book> = [];
 
-							books.forEach((book: AnemicBook) => {
-								newBooks.push(new Book(book.title, book.rating));
-							});
-
-							return newBooks;
+							return Object.keys(entities)
+										 .map(id => entities[id])
+										 .map((book: any) => {
+											return new Book(book.id, book.title, book.rating);
+										 });
 						})
 				   );
 	}

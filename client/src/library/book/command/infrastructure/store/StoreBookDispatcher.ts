@@ -21,7 +21,7 @@ export class StoreBookDispatcher extends BookDispatcher {
 		if (command instanceof AddBookSuccessCommand) {
 
 			const aggregate = (command as AddBookSuccessCommand).bookAggregate,
-				anemicBook = new AnemicBook(aggregate.title, aggregate.rating);
+				anemicBook = new AnemicBook(aggregate.id, aggregate.title, aggregate.rating);
 
 			const addAction = {
 				type: command.constructor.name,
@@ -37,7 +37,7 @@ export class StoreBookDispatcher extends BookDispatcher {
 
 			this.store.dispatch({
 				type: command.constructor.name,
-				payload: (command as DeleteBookSuccessCommand).title
+				payload: (command as DeleteBookSuccessCommand).id
 			});
 
 			return;

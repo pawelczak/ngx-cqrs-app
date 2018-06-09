@@ -1,6 +1,7 @@
 export class BookAggregate {
 
-	constructor(public title: string,
+	constructor(public id: number,
+				public title: string,
 				public rating?: number) {}
 
 	calculateRating() {

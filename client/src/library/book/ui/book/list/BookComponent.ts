@@ -47,7 +47,7 @@ export class BookComponent implements OnInit, OnDestroy {
 	}
 
 	deleteBook(book: Book): void {
-		this.bookDispatcher.dispatch(new DeleteBookCommand(book.title));
+		this.bookDispatcher.dispatch(new DeleteBookCommand(book.id));
 	}
 
 	private initSaga(): void {

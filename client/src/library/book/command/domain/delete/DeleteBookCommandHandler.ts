@@ -15,13 +15,13 @@ export class DeleteBookCommandHandler {
 
 	execute(deleteBookCommand: DeleteBookCommand): Observable<boolean> {
 
-		const title = deleteBookCommand.title;
+		const bookId = deleteBookCommand.id;
 
 		return this.bookResource
-				   .deleteBook(title)
+				   .deleteBook(bookId)
 				   .pipe(
 					   tap(() => {
-						   this.bookDispatcher.dispatch(new DeleteBookSuccessCommand(title));
+						   this.bookDispatcher.dispatch(new DeleteBookSuccessCommand(bookId));
 					   }),
 					   map(() => null),
 					   catchError((error) => {

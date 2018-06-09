@@ -10,5 +10,5 @@ export abstract class BookResource {
 
 	abstract updateBook(title: string): Observable<void>;
 
-	abstract deleteBook(title: string): Observable<void>;
+	abstract deleteBook(id: number): Observable<void>;
 }

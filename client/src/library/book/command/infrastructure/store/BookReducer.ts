@@ -2,6 +2,7 @@ import { BookState } from './BookState';
 import { FetchAllBooksCommand, FetchAllBooksFailureCommand, FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommands';
 import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
 import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
+import { AnemicBook } from './AnemicBook';
 
 const defaultState = new BookState();
 
@@ -15,7 +16,13 @@ export function bookReducer(state: BookState = defaultState, action: any): BookS
 
 		case FetchAllBooksSuccessCommand.type:
 
-			const allBooks = [...action.payload];
+			const allBooks = {};
+
+			const fetchedBooks = action.payload as Array<AnemicBook>;
+
+			fetchedBooks.forEach((book: AnemicBook) => {
+				allBooks[book.id] = book;
+			});
 
 			return Object.assign(new BookState(), state, { books: allBooks, fetching: false, fetched: true });
 
@@ -25,17 +32,21 @@ export function bookReducer(state: BookState = defaultState, action: any): BookS
 
 		case AddBookSuccessCommand.type:
 
-			const newBook = action.payload;
+			const newBook = action.payload,
+				newState = {...state.books};
 
-			return Object.assign(new BookState(), state, { books: [...state.books, newBook] });
+			newState[newBook.id] = newBook;
+
+			return Object.assign(new BookState(), state, { books: newState });
 
 		case DeleteBookSuccessCommand.type:
 
-			const deletedBookTitle = action.payload;
+			const deletedBookId = action.payload as number,
+				booksAfterDelete = {...state.books};
 
-			let books = state.books.filter((book) => book.title !== deletedBookTitle);
+			delete booksAfterDelete[deletedBookId];
 
-			return Object.assign(new BookState(), state, { books });
+			return Object.assign(new BookState(), state, { books: booksAfterDelete });
 
 		default:
 			return state;

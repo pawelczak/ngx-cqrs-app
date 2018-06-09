@@ -8,6 +8,8 @@ import { BookAggregate } from '../../domain/BookAggregate';
 @Injectable()
 export class RestBookResource extends BookResource {
 
+	static counter = 5;
+
 	constructor() {
 		super();
 	}
@@ -17,20 +19,20 @@ export class RestBookResource extends BookResource {
 	}
 
 	addBook(title: string): Observable<BookAggregate> {
-		return of(new BookAggregate(title));
+		return of(new BookAggregate(++RestBookResource.counter, title));
 	}
 
 	updateBook(title: string): Observable<void> {
 		return of(null);
 	}
 
-	deleteBook(title: string): Observable<void> {
+	deleteBook(id: number): Observable<void> {
 		return of(null);
 	}
 
 	private books = [
-		new BookAggregate('Gone with the wind'),
-		new BookAggregate('Lord of the Flies'),
-		new BookAggregate('The Hobbit')
+		new BookAggregate(1, 'Gone with the wind'),
+		new BookAggregate(2, 'Lord of the Flies'),
+		new BookAggregate(3, 'The Hobbit')
 	]
 }

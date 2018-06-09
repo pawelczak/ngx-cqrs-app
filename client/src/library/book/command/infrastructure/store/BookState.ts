@@ -3,6 +3,6 @@ import { AnemicBook } from './AnemicBook';
 
 export class BookState extends State {
 
-	books: Array<AnemicBook> = [];
+	books: {[key: number]: AnemicBook} = {};
 
 }
