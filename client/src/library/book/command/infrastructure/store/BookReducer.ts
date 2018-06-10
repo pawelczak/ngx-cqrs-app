@@ -24,7 +24,7 @@ export function bookReducer(state: BookState = defaultState, action: any): BookS
 				allBooks[book.id] = book;
 			});
 
-			return Object.assign(new BookState(), state, { books: allBooks, fetching: false, fetched: true });
+			return Object.assign(new BookState(), state, { entities: allBooks, fetching: false, fetched: true });
 
 		case FetchAllBooksFailureCommand.type:
 
@@ -33,20 +33,20 @@ export function bookReducer(state: BookState = defaultState, action: any): BookS
 		case AddBookSuccessCommand.type:
 
 			const newBook = action.payload,
-				newState = {...state.books};
+				newState = {...state.entities};
 
 			newState[newBook.id] = newBook;
 
-			return Object.assign(new BookState(), state, { books: newState });
+			return Object.assign(new BookState(), state, { entities: newState });
 
 		case DeleteBookSuccessCommand.type:
 
 			const deletedBookId = action.payload as number,
-				booksAfterDelete = {...state.books};
+				booksAfterDelete = {...state.entities};
 
 			delete booksAfterDelete[deletedBookId];
 
-			return Object.assign(new BookState(), state, { books: booksAfterDelete });
+			return Object.assign(new BookState(), state, { entities: booksAfterDelete });
 
 		default:
 			return state;

@@ -5,7 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { BookResource } from '../../../command/domain/BookResource';
 import { RestBookResource } from '../../../command/infrastructure/rest/RestBookResource';
-import { BookDispatcher } from '../../../command/domain/BookDispatcher';
+import { BookCommandDispatcher } from '../../../command/domain/BookCommandDispatcher';
 import { DeleteBookCommandHandler } from '../../../command/domain/delete/DeleteBookCommandHandler';
 import { BookComponent } from './BookComponent';
 import { StoreBookRepository } from '../../../query/infrastructure/store/StoreBookRepository';
@@ -20,7 +20,7 @@ import { StoreBookDispatcher } from '../../../command/infrastructure/store/Store
 
 const providers: Array<Provider> = [
 	{
-		provide: BookDispatcher,
+		provide: BookCommandDispatcher,
 		useClass: StoreBookDispatcher
 	},
 	{

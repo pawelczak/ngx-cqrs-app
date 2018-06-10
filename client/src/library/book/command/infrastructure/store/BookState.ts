@@ -3,6 +3,6 @@ import { AnemicBook } from './AnemicBook';
 
 export class BookState extends State {
 
-	books: {[key: number]: AnemicBook} = {};
+	entities: {[key: number]: AnemicBook} = {};
 
 }

@@ -17,7 +17,7 @@ export class StoreBookRepository extends BookRepository {
 
 	selectBooks(): Observable<Array<Book>> {
 		return this.store
-				   .select(state => state.library.books.books)
+				   .select(state => state.library.books.entities)
 				   .pipe(
 						// BookAnemia only link between command and query
 						// Selectors can probably handle this issue

@@ -1,4 +1,4 @@
-import { Command } from '../../../../../util/cqrs/Command';
+import { Command } from '../../../../../util/cqrs/command/Command';
 
 export class DeleteBookCommand extends Command {
 

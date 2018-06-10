@@ -4,13 +4,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { BookResource } from '../BookResource';
 import { DeleteBookCommand, DeleteBookFailureCommand, DeleteBookSuccessCommand } from './DeleteBookCommands';
-import { BookDispatcher } from '../BookDispatcher';
+import { BookCommandDispatcher } from '../BookCommandDispatcher';
 
 @Injectable()
 export class DeleteBookCommandHandler {
 
 	constructor(private bookResource: BookResource,
-				private bookDispatcher: BookDispatcher) {
+				private bookDispatcher: BookCommandDispatcher) {
 	}
 
 	execute(deleteBookCommand: DeleteBookCommand): Observable<boolean> {

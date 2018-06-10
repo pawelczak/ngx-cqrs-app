@@ -5,13 +5,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { BookResource } from '../BookResource';
 import { BookAggregate } from '../BookAggregate';
 import { FetchAllBooksFailureCommand, FetchAllBooksSuccessCommand } from './FetchBookCommands';
-import { BookDispatcher } from '../BookDispatcher';
+import { BookCommandDispatcher } from '../BookCommandDispatcher';
 
 @Injectable()
 export class FetchAllBooksCommandHandler {
 
 	constructor(private bookResource: BookResource,
-				private bookDispatcher: BookDispatcher) {
+				private bookDispatcher: BookCommandDispatcher) {
 	}
 
 	execute(): Observable<Array<BookAggregate>> {

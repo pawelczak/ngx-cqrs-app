@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BookDispatcher } from '../../../command/domain/BookDispatcher';
+import { BookCommandDispatcher } from '../../../command/domain/BookCommandDispatcher';
 import { Book } from '../../../query/domain/Book';
 import { BookRepository } from '../../../query/domain/BookRepository';
 import { DeleteBookCommand } from '../../../command/domain/delete/DeleteBookCommands';
@@ -23,7 +23,7 @@ export class BookComponent implements OnInit, OnDestroy {
 	private unsubscribe$: Subject<void> = new Subject<void>();
 
 	constructor(private bookRepository: BookRepository,
-				private bookDispatcher: BookDispatcher) {
+				private bookDispatcher: BookCommandDispatcher) {
 	}
 
 	ngOnInit() {

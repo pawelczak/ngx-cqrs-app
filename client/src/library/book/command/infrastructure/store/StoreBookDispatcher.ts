@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 
-import { BookDispatcher } from '../../domain/BookDispatcher';
-import { Command } from '../../../../../util/cqrs/Command';
+import { BookCommandDispatcher } from '../../domain/BookCommandDispatcher';
+import { Command } from '../../../../../util/cqrs/command/Command';
 import { AnemicBook } from './AnemicBook';
 import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
 import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
@@ -10,7 +10,7 @@ import { FetchAllBooksSuccessCommand } from '../../domain/fetch/FetchBookCommand
 
 
 @Injectable()
-export class StoreBookDispatcher extends BookDispatcher {
+export class StoreBookDispatcher extends BookCommandDispatcher {
 
 	constructor(private store: Store<any>) {
 		super();

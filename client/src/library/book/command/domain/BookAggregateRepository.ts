@@ -1,6 +1,8 @@
 import { BookAggregate } from './BookAggregate';
 
-export abstract class BookAggregateRepository {
+import { AggragateRepository } from '../../../../util/cqrs/command/AggragateRepository';
+
+export abstract class BookAggregateRepository extends AggragateRepository {
 
 	abstract getBookAggregate(bookId: string): BookAggregate;
 
