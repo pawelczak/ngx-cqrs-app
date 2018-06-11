@@ -8,6 +8,7 @@ import { BookRepository } from '../../../query/domain/BookRepository';
 import { DeleteBookCommand } from '../../../command/domain/delete/DeleteBookCommands';
 import { AddBookCommand } from '../../../command/domain/add/AddBookCommands';
 import { FetchAllBooksCommand } from '../../../command/domain/fetch/FetchBookCommands';
+import { AddBookToFavouritesCommand, ReadFavouriteBookIdsCommand, RemoveBookFromFavouritesCommand } from '../../../command/domain/favourite/FavouriteCommands';
 
 @Component({
 	selector: 'app-book',
@@ -50,8 +51,17 @@ export class BookComponent implements OnInit, OnDestroy {
 		this.bookDispatcher.dispatch(new DeleteBookCommand(book.id));
 	}
 
+	addBookToFavourites(book: Book): void {
+		this.bookDispatcher.dispatch(new AddBookToFavouritesCommand(book.id));
+	}
+
+	removeBookFromFavourites(book: Book): void {
+		this.bookDispatcher.dispatch(new RemoveBookFromFavouritesCommand(book.id));
+	}
+
 	private initSaga(): void {
 		this.bookDispatcher.dispatch(new FetchAllBooksCommand());
+		this.bookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());
 	}
 
 }

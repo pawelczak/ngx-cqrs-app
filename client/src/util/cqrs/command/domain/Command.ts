@@ -1,4 +1,4 @@
-import { getUuidV4String } from '../../uuid';
+import { getUuidV4String } from '../../../uuid';
 
 export abstract class Command {
 
@@ -6,5 +6,9 @@ export abstract class Command {
 
 	static get type(): string {
 		return this.prototype.constructor.name;
+	}
+
+	ofType(type: string): boolean {
+		return this.constructor.name === type;
 	}
 }

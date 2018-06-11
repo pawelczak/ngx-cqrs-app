@@ -5,4 +5,6 @@ export class BookState extends State {
 
 	entities: {[key: number]: AnemicBook} = {};
 
+	favourites: Array<number> = [];
+
 }

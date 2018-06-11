@@ -12,7 +12,7 @@ export class AnemicBook {
 
 	static fromArrayAggregate(bookAggregates: Array<BookAggregate>): Array<AnemicBook> {
 		return bookAggregates.map((bookAggregate: BookAggregate) => {
-			return new AnemicBook(bookAggregate.id, bookAggregate.title, bookAggregate.rating)
+			return AnemicBook.fromAggregate(bookAggregate)
 		});
 	}
 

@@ -1,5 +1,5 @@
-import { Command } from '../../../../util/cqrs/command/Command';
-import { CommandDispatcher } from '../../../../util/cqrs/command/CommandDispatcher';
+import { Command } from '../../../../util/cqrs/command/domain/Command';
+import { CommandDispatcher } from '../../../../util/cqrs/command/domain/CommandDispatcher';
 
 export abstract class BookCommandDispatcher extends CommandDispatcher {
 

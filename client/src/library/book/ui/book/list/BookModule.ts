@@ -17,6 +17,29 @@ import { StoreBookAddCommandHandler } from '../../../command/infrastructure/stor
 import { StoreBookDeleteCommandHandler } from '../../../command/infrastructure/store/delete/StoreBookDeleteCommandHandler';
 import { StoreBookFetchCommandHandler } from '../../../command/infrastructure/store/fetch/StoreBookFetchCommandHandler';
 import { StoreBookDispatcher } from '../../../command/infrastructure/store/StoreBookDispatcher';
+import { AddBookToFavouritesHandler } from '../../../command/domain/favourite/AddBookToFavouritesHandler';
+import { FavouriteBookResource } from '../../../command/domain/favourite/FavouriteBookResource';
+import { LocalStorageFavouriteBookResource } from '../../../command/infrastructure/localstorage/favourite/LocalStorageFavouriteBookResource';
+import { favouriteBookReducer } from '../../../command/infrastructure/store/favourite/FavouriteBookReducer';
+import { ReadFavouriteBookIdsHandler } from '../../../command/domain/favourite/ReadFavouriteBookIdsHandler';
+import { FavouriteBookDispatcher } from '../../../command/domain/favourite/FavouriteBookDispatcher';
+import { StoreFavouriteBookDispatcher } from '../../../command/infrastructure/store/favourite/StoreFavouriteBookDispatcher';
+import { RemoveBookFromFavouritesHandler } from '../../../command/domain/favourite/RemoveBookFromFavouritesHandler';
+
+import { CqrsModule } from '../../../../../util/cqrs/ui/CqrsModule';
+
+
+const handlers = [
+	// book handlers
+	AddBookCommandHandler,
+	DeleteBookCommandHandler,
+	FetchAllBooksCommandHandler,
+
+	// favourite book handlers
+	AddBookToFavouritesHandler,
+	ReadFavouriteBookIdsHandler,
+	RemoveBookFromFavouritesHandler
+];
 
 const providers: Array<Provider> = [
 	{
@@ -27,22 +50,30 @@ const providers: Array<Provider> = [
 		provide: BookRepository,
 		useClass: StoreBookRepository
 	},
-	AddBookCommandHandler,
-	DeleteBookCommandHandler,
-	FetchAllBooksCommandHandler
+	{
+		provide: FavouriteBookResource,
+		useClass: LocalStorageFavouriteBookResource
+	},
+	{
+		provide: FavouriteBookDispatcher,
+		useClass: StoreFavouriteBookDispatcher
+	},
+	...handlers
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
 		StoreModule.forFeature('library', {
-			books: bookReducer
+			books: bookReducer,
+			favourites: favouriteBookReducer
 		}),
 		EffectsModule.forFeature([
 			StoreBookAddCommandHandler,
 			StoreBookDeleteCommandHandler,
 			StoreBookFetchCommandHandler
-		])
+		]),
+		CqrsModule.forRoot()
 	],
 	declarations: [
 		BookComponent
@@ -50,6 +81,10 @@ const providers: Array<Provider> = [
 	exports: []
 })
 export class BookModule {
+
+	constructor(private addBookToFavouritesHandler: AddBookToFavouritesHandler,
+				private removeBookFromFavouritesHandler: RemoveBookFromFavouritesHandler,
+				private readFavouriteBookIdsHandler: ReadFavouriteBookIdsHandler) {}
 
 	static forRoot(config?: any): ModuleWithProviders {
 

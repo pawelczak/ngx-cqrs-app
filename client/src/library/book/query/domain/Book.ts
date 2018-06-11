@@ -3,7 +3,8 @@ export class Book {
 	constructor(
 		public id: number,
 		public title: string,
-		public rating?: number
+		public rating?: number,
+		public favourite: boolean = false
 	) {}
 
 

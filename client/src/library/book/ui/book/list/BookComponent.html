@@ -1,7 +1,14 @@
 <ul>
-	<li *ngFor="let book of books" >
+	<li *ngFor="let book of books">
 
-		<p>{{book.getShortTitle()}}</p>
+		<div>
+			<span (click)="addBookToFavourites(book)">{{book.getShortTitle()}}</span>
+
+			<div *ngIf="book.favourite"
+				 (click)="removeBookFromFavourites(book)">
+				***
+			</div>
+		</div>
 
 		<p *ngIf="book.hasAuthors()">
 			List of authors
@@ -24,6 +31,6 @@
 
 	<h2>Add Book</h2>
 
-	<button (click)="addBook()" >Add</button>
+	<button (click)="addBook()">Add</button>
 
 </div>

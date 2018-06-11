@@ -3,6 +3,7 @@ import { FetchAllBooksCommand, FetchAllBooksFailureCommand, FetchAllBooksSuccess
 import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
 import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
 import { AnemicBook } from './AnemicBook';
+import { AddBookToFavouritesCommand, RemoveBookFromFavouritesCommand } from '../../domain/favourite/FavouriteCommands';
 
 const defaultState = new BookState();
 
@@ -47,6 +48,23 @@ export function bookReducer(state: BookState = defaultState, action: any): BookS
 			delete booksAfterDelete[deletedBookId];
 
 			return Object.assign(new BookState(), state, { entities: booksAfterDelete });
+
+
+		case AddBookToFavouritesCommand.type:
+
+			const bookIdToAdd = action.payload.bookId,
+				favouriteIds = [...state.favourites, bookIdToAdd];
+
+			return Object.assign(new BookState(), state, { favourites: favouriteIds });
+
+		case RemoveBookFromFavouritesCommand.type:
+
+			let bookIdToRemove = action.payload.bookId,
+				newFavouriteIds = [...state.favourites];
+
+			newFavouriteIds = newFavouriteIds.filter(id => id === bookIdToRemove);
+
+			return Object.assign(new BookState(), state, { favourites: newFavouriteIds });
 
 		default:
 			return state;

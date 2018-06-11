@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
-import { AnemicBook } from '../../../command/infrastructure/store/AnemicBook';
 import { BookRepository } from '../../domain/BookRepository';
 import { Book } from '../../domain/Book';
 
@@ -16,20 +15,43 @@ export class StoreBookRepository extends BookRepository {
 	}
 
 	selectBooks(): Observable<Array<Book>> {
-		return this.store
-				   .select(state => state.library.books.entities)
-				   .pipe(
-						// BookAnemia only link between command and query
-						// Selectors can probably handle this issue
-				   		map((entities: {[key:number]: AnemicBook}) => {
-							let newBooks: Array<Book> = [];
 
-							return Object.keys(entities)
-										 .map(id => entities[id])
-										 .map((book: any) => {
-											return new Book(book.id, book.title, book.rating);
-										 });
-						})
+		return combineLatest(
+			this.selectBookEntities(),
+			this.selectFavouriteBookIds()
+		)
+			.pipe(
+				map((combinedValues) => {
+
+					const entities = combinedValues[0],
+						favouriteBookIds = combinedValues[1];
+
+					let newBooks: Array<Book> = [];
+
+					return Object.keys(entities)
+								 .map(id => entities[id])
+								 .map((book: any) => {
+									 const favourite = favouriteBookIds.some((f: number) => f === book.id);
+									 return new Book(book.id, book.title, book.rating, favourite);
+								 });
+				})
+			);
+	}
+
+	selectBookEntities(): Observable<{ [key: number]: any }> {
+		return this.store
+				   .select(state => state.library.books)
+				   .pipe(
+					   filter(state => state.fetched),
+					   map(state => state.entities)
+				   );
+	}
+
+	selectFavouriteBookIds(): Observable<Array<number>> {
+		return this.store.select(state => state.library.favourites)
+				   .pipe(
+					   filter(state => state.fetched),
+					   map(state => state.favourites)
 				   );
 	}
 

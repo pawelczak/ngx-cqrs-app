@@ -1,4 +1,4 @@
-import { Command } from '../../../../../util/cqrs/command/Command';
+import { Command } from '../../../../../util/cqrs/command/domain/Command';
 
 import { BookAggregate } from '../BookAggregate';
 

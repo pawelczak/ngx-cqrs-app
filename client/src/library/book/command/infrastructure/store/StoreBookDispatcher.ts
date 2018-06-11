@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 
 import { BookCommandDispatcher } from '../../domain/BookCommandDispatcher';
-import { Command } from '../../../../../util/cqrs/command/Command';
+import { Command } from '../../../../../util/cqrs/command/domain/Command';
 import { AnemicBook } from './AnemicBook';
 import { DeleteBookSuccessCommand } from '../../domain/delete/DeleteBookCommands';
 import { AddBookSuccessCommand } from '../../domain/add/AddBookCommands';
@@ -21,7 +21,7 @@ export class StoreBookDispatcher extends BookCommandDispatcher {
 		if (command instanceof AddBookSuccessCommand) {
 
 			const aggregate = (command as AddBookSuccessCommand).bookAggregate,
-				anemicBook = new AnemicBook(aggregate.id, aggregate.title, aggregate.rating);
+				anemicBook = AnemicBook.fromAggregate(aggregate);
 
 			const addAction = {
 				type: command.constructor.name,
