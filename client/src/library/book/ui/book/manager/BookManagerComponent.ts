@@ -12,13 +12,13 @@ import { AddBookToFavouritesCommand, ReadFavouriteBookIdsCommand, RemoveBookFrom
 import { FavouriteBookDispatcher } from '../../../command/domain/favourite/FavouriteBookDispatcher';
 
 @Component({
-	selector: 'app-book',
-	templateUrl: './BookComponent.html',
+	selector: 'cqrs-book-manager',
+	templateUrl: './BookManagerComponent.html',
 	styleUrls: [
-		'./BookComponent.ngx.scss'
+		'./BookManagerComponent.ngx.scss'
 	]
 })
-export class BookComponent implements OnInit, OnDestroy {
+export class BookManagerComponent implements OnInit, OnDestroy {
 
 	books: Array<Book>;
 

@@ -7,7 +7,7 @@ import { BookResource } from '../../../command/domain/BookResource';
 import { RestBookResource } from '../../../command/infrastructure/rest/RestBookResource';
 import { BookCommandDispatcher } from '../../../command/domain/BookCommandDispatcher';
 import { DeleteBookCommandHandler } from '../../../command/domain/delete/DeleteBookCommandHandler';
-import { BookComponent } from './BookComponent';
+import { BookManagerComponent } from './BookManagerComponent';
 import { StoreBookRepository } from '../../../query/infrastructure/store/StoreBookRepository';
 import { bookReducer } from '../../../command/infrastructure/store/BookReducer';
 import { AddBookCommandHandler } from '../../../command/domain/add/AddBookCommandHandler';
@@ -27,6 +27,7 @@ import { StoreFavouriteBookDispatcher } from '../../../command/infrastructure/st
 import { RemoveBookFromFavouritesHandler } from '../../../command/domain/favourite/RemoveBookFromFavouritesHandler';
 
 import { CqrsModule } from '../../../../../util/cqrs/ui/CqrsModule';
+import { BookPanelComponent } from './bookpanel/BookPanelComponent';
 
 
 const handlers = [
@@ -76,11 +77,12 @@ const providers: Array<Provider> = [
 		CqrsModule.forRoot()
 	],
 	declarations: [
-		BookComponent
+		BookManagerComponent,
+		BookPanelComponent
 	],
 	exports: []
 })
-export class BookModule {
+export class BookManagerModule {
 
 	constructor(private addBookToFavouritesHandler: AddBookToFavouritesHandler,
 				private removeBookFromFavouritesHandler: RemoveBookFromFavouritesHandler,
@@ -100,7 +102,7 @@ export class BookModule {
 		}
 
 		return {
-			ngModule: BookModule,
+			ngModule: BookManagerModule,
 			providers: rootProviders
 		};
 	}
