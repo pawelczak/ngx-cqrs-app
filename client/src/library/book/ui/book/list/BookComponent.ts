@@ -9,6 +9,7 @@ import { DeleteBookCommand } from '../../../command/domain/delete/DeleteBookComm
 import { AddBookCommand } from '../../../command/domain/add/AddBookCommands';
 import { FetchAllBooksCommand } from '../../../command/domain/fetch/FetchBookCommands';
 import { AddBookToFavouritesCommand, ReadFavouriteBookIdsCommand, RemoveBookFromFavouritesCommand } from '../../../command/domain/favourite/FavouriteCommands';
+import { FavouriteBookDispatcher } from '../../../command/domain/favourite/FavouriteBookDispatcher';
 
 @Component({
 	selector: 'app-book',
@@ -24,7 +25,8 @@ export class BookComponent implements OnInit, OnDestroy {
 	private unsubscribe$: Subject<void> = new Subject<void>();
 
 	constructor(private bookRepository: BookRepository,
-				private bookDispatcher: BookCommandDispatcher) {
+				private bookDispatcher: BookCommandDispatcher,
+				private favouriteBookDispatcher: FavouriteBookDispatcher) {
 	}
 
 	ngOnInit() {
@@ -52,16 +54,16 @@ export class BookComponent implements OnInit, OnDestroy {
 	}
 
 	addBookToFavourites(book: Book): void {
-		this.bookDispatcher.dispatch(new AddBookToFavouritesCommand(book.id));
+		this.favouriteBookDispatcher.dispatch(new AddBookToFavouritesCommand(book.id));
 	}
 
 	removeBookFromFavourites(book: Book): void {
-		this.bookDispatcher.dispatch(new RemoveBookFromFavouritesCommand(book.id));
+		this.favouriteBookDispatcher.dispatch(new RemoveBookFromFavouritesCommand(book.id));
 	}
 
 	private initSaga(): void {
 		this.bookDispatcher.dispatch(new FetchAllBooksCommand());
-		this.bookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());
+		this.favouriteBookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());
 	}
 
 }

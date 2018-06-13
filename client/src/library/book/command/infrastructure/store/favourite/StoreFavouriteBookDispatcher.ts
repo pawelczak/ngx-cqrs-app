@@ -1,10 +1,10 @@
-import { Command } from '../../../../../../util/cqrs/command/domain/Command';
-import { AddBookSuccessCommand } from '../../../domain/add/AddBookCommands';
-import { Action, Store } from '@ngrx/store';
-import { BookCommandDispatcher } from '../../../domain/BookCommandDispatcher';
 import { Injectable } from '@angular/core';
-import { AnemicBook } from '../AnemicBook';
+import { Action, Store } from '@ngrx/store';
+
+import { BookCommandDispatcher } from '../../../domain/BookCommandDispatcher';
 import { ReadFavouriteBookIdsSuccessCommand } from '../../../domain/favourite/FavouriteCommands';
+
+import { Command } from '../../../../../../util/cqrs/command/domain/Command';
 
 @Injectable()
 export class StoreFavouriteBookDispatcher extends BookCommandDispatcher {
@@ -25,6 +25,15 @@ export class StoreFavouriteBookDispatcher extends BookCommandDispatcher {
 			} as Action;
 
 			this.store.dispatch(action);
+
+			return;
 		}
+
+		const action = {
+			type: command.constructor.name,
+			payload: command
+		} as Action;
+
+		this.store.dispatch(action);
 	}
 }

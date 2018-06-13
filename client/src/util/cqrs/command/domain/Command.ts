@@ -11,4 +11,6 @@ export abstract class Command {
 	ofType(type: string): boolean {
 		return this.constructor.name === type;
 	}
+
+	getPayload(): any {}
 }

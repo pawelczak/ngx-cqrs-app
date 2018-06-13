@@ -20,7 +20,7 @@ export class AddBookToFavouritesHandler {
 				filter((command: any) => command.type === (AddBookToFavouritesCommand.type))
 			)
 			.subscribe((command) => {
-				this.favouriteBookResource.addFavouriteBook(command.payload.bookId);
+				this.favouriteBookResource.addFavouriteBook(command.payload.payload);
 			});
 	}
 }

@@ -19,13 +19,13 @@ export class ReadFavouriteBookIdsFailureCommand extends Command {
 }
 
 export class AddBookToFavouritesCommand extends Command {
-	constructor(public bookId: number) {
+	constructor(public payload: number) {
 		super();
 	}
 }
 
 export class RemoveBookFromFavouritesCommand extends Command {
-	constructor(public bookId: number) {
+	constructor(public payload: number) {
 		super();
 	}
 }

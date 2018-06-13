@@ -21,7 +21,7 @@ export class RemoveBookFromFavouritesHandler {
 				filter((command: any) => command.type === (RemoveBookFromFavouritesCommand.type))
 			)
 			.subscribe((command: any) => {
-				this.favouriteBookResource.removeFavouriteBook(command.payload.bookId);
+				this.favouriteBookResource.removeFavouriteBook(command.payload.payload);
 			});
 	}
 }

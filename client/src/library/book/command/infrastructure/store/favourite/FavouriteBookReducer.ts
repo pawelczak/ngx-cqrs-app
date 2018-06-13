@@ -3,8 +3,6 @@ import {
 	AddBookToFavouritesCommand, ReadFavouriteBookIdsCommand, ReadFavouriteBookIdsSuccessCommand,
 	RemoveBookFromFavouritesCommand
 } from '../../../domain/favourite/FavouriteCommands';
-import { FetchAllBooksCommand } from '../../../domain/fetch/FetchBookCommands';
-import { BookState } from '../BookState';
 
 const defaultState = new FavouriteBookState();
 
@@ -12,24 +10,26 @@ export function favouriteBookReducer(state: FavouriteBookState = defaultState, a
 
 	switch (action.type) {
 
-		case FetchAllBooksCommand.type:
+		case ReadFavouriteBookIdsCommand.type:
 
-			return Object.assign(new BookState(), state, { fetching: true });
+			return Object.assign(new FavouriteBookState(), state, { fetching: true });
 
 		case ReadFavouriteBookIdsSuccessCommand.type:
 
-			return Object.assign(new BookState(), state, { favourites: [...action.payload.payload], fetching: false, fetched: true });
+			const favourteBookIds = [...action.payload.payload] as Array<number>;
+
+			return Object.assign(new FavouriteBookState(), state, { favourites: favourteBookIds, fetching: false, fetched: true });
 
 		case AddBookToFavouritesCommand.type:
 
-			const bookIdToAdd = action.payload.bookId,
+			const bookIdToAdd = action.payload.payload,
 				favouriteIds = [...state.favourites, bookIdToAdd];
 
 			return Object.assign(new FavouriteBookState(), state, { favourites: favouriteIds });
 
 		case RemoveBookFromFavouritesCommand.type:
 
-			let bookIdToRemove = action.payload.bookId,
+			let bookIdToRemove = action.payload.payload,
 				newFavouriteIds = [...state.favourites];
 
 			newFavouriteIds = newFavouriteIds.filter(id => id !== bookIdToRemove);
