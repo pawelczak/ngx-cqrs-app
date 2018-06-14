@@ -49,18 +49,6 @@ export class BookManagerComponent implements OnInit, OnDestroy {
 		this.bookDispatcher.dispatch(new AddBookCommand('New Book' + Date.now()));
 	}
 
-	deleteBook(book: Book): void {
-		this.bookDispatcher.dispatch(new DeleteBookCommand(book.id));
-	}
-
-	addBookToFavourites(book: Book): void {
-		this.favouriteBookDispatcher.dispatch(new AddBookToFavouritesCommand(book.id));
-	}
-
-	removeBookFromFavourites(book: Book): void {
-		this.favouriteBookDispatcher.dispatch(new RemoveBookFromFavouritesCommand(book.id));
-	}
-
 	private initSaga(): void {
 		this.bookDispatcher.dispatch(new FetchAllBooksCommand());
 		this.favouriteBookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());

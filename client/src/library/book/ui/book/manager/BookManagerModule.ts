@@ -28,7 +28,10 @@ import { RemoveBookFromFavouritesHandler } from '../../../command/domain/favouri
 
 import { CqrsModule } from '../../../../../util/cqrs/ui/CqrsModule';
 import { BookPanelComponent } from './bookpanel/BookPanelComponent';
+import { STORE_BOOK_NAME } from '../../../command/infrastructure/store/StoreBookNameToken';
 
+
+const bookStoreName = 'library';
 
 const handlers = [
 	// book handlers
@@ -43,6 +46,10 @@ const handlers = [
 ];
 
 const providers: Array<Provider> = [
+	{
+		provide: STORE_BOOK_NAME,
+		useValue: bookStoreName
+	},
 	{
 		provide: BookCommandDispatcher,
 		useClass: StoreBookDispatcher
@@ -65,7 +72,7 @@ const providers: Array<Provider> = [
 @NgModule({
 	imports: [
 		CommonModule,
-		StoreModule.forFeature('library', {
+		StoreModule.forFeature(bookStoreName, {
 			books: bookReducer,
 			favourites: favouriteBookReducer
 		}),
