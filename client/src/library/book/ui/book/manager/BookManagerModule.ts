@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -29,6 +30,7 @@ import { RemoveBookFromFavouritesHandler } from '../../../command/domain/favouri
 import { CqrsModule } from '../../../../../util/cqrs/ui/CqrsModule';
 import { BookPanelComponent } from './bookpanel/BookPanelComponent';
 import { STORE_BOOK_NAME } from '../../../command/infrastructure/store/StoreBookNameToken';
+import { BookAddComponent } from './addbook/BookAddComponent';
 
 
 const bookStoreName = 'library';
@@ -81,11 +83,13 @@ const providers: Array<Provider> = [
 			StoreBookDeleteCommandHandler,
 			StoreBookFetchCommandHandler
 		]),
+		ReactiveFormsModule,
 		CqrsModule.forRoot()
 	],
 	declarations: [
 		BookManagerComponent,
-		BookPanelComponent
+		BookPanelComponent,
+		BookAddComponent
 	],
 	exports: []
 })

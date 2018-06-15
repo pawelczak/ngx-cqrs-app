@@ -24,12 +24,4 @@ export class Commands<C = Command> extends Observable<C> {
 		return observable;
 	}
 
-	// ofTreeAction<T2 extends C>(...actions: Array<string>): any {
-	// 	return (this as LocalActions<any>)
-	// 		.pipe(
-	// 			filter((treeAction: TreeAction) => {
-	// 				return actions.some((action: string) => action === treeAction.type);
-	// 			})
-	// 		);
-	// }
 }

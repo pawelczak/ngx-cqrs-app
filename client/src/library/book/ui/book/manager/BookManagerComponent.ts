@@ -5,10 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { BookCommandDispatcher } from '../../../command/domain/BookCommandDispatcher';
 import { Book } from '../../../query/domain/Book';
 import { BookRepository } from '../../../query/domain/BookRepository';
-import { DeleteBookCommand } from '../../../command/domain/delete/DeleteBookCommands';
-import { AddBookCommand } from '../../../command/domain/add/AddBookCommands';
 import { FetchAllBooksCommand } from '../../../command/domain/fetch/FetchBookCommands';
-import { AddBookToFavouritesCommand, ReadFavouriteBookIdsCommand, RemoveBookFromFavouritesCommand } from '../../../command/domain/favourite/FavouriteCommands';
+import { ReadFavouriteBookIdsCommand } from '../../../command/domain/favourite/FavouriteCommands';
 import { FavouriteBookDispatcher } from '../../../command/domain/favourite/FavouriteBookDispatcher';
 
 @Component({
@@ -25,7 +23,7 @@ export class BookManagerComponent implements OnInit, OnDestroy {
 	private unsubscribe$: Subject<void> = new Subject<void>();
 
 	constructor(private bookRepository: BookRepository,
-				private bookDispatcher: BookCommandDispatcher,
+				private bookCommandDispatcher: BookCommandDispatcher,
 				private favouriteBookDispatcher: FavouriteBookDispatcher) {
 	}
 
@@ -45,12 +43,8 @@ export class BookManagerComponent implements OnInit, OnDestroy {
 		this.unsubscribe$.complete();
 	}
 
-	addBook(): void {
-		this.bookDispatcher.dispatch(new AddBookCommand('New Book' + Date.now()));
-	}
-
 	private initSaga(): void {
-		this.bookDispatcher.dispatch(new FetchAllBooksCommand());
+		this.bookCommandDispatcher.dispatch(new FetchAllBooksCommand());
 		this.favouriteBookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());
 	}
 
