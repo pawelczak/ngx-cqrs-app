@@ -8,6 +8,7 @@ import { BookRepository } from '../../../query/domain/BookRepository';
 import { FetchAllBooksCommand } from '../../../command/domain/fetch/FetchBookCommands';
 import { ReadFavouriteBookIdsCommand } from '../../../command/domain/favourite/FavouriteCommands';
 import { FavouriteBookDispatcher } from '../../../command/domain/favourite/FavouriteBookDispatcher';
+import { Saga } from '../../../../../util/cqrs/command/domain/saga/Saga';
 
 @Component({
 	selector: 'cqrs-book-manager',
@@ -44,8 +45,21 @@ export class BookManagerComponent implements OnInit, OnDestroy {
 	}
 
 	private initSaga(): void {
-		this.bookCommandDispatcher.dispatch(new FetchAllBooksCommand());
-		this.favouriteBookDispatcher.dispatch(new ReadFavouriteBookIdsCommand());
+
+
+		const fetchBooksCommand = new FetchAllBooksCommand(),
+			readFavouriteCommand = new ReadFavouriteBookIdsCommand();
+		//
+		// let saga = new Saga([
+		// 	fetchBooksCommand,
+		// 	readFavouriteCommand
+		// ]);
+
+		this.bookCommandDispatcher.dispatch(fetchBooksCommand);
+		this.favouriteBookDispatcher.dispatch(readFavouriteCommand);
+
+
+
 	}
 
 }
