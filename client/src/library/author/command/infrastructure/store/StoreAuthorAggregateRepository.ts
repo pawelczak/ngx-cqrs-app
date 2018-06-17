@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { AuthorAggregateRepository } from '../../domain/AuthorAggregateRepository';
 import { AuthorAggregate } from '../../domain/AuthorAggregate';
 import { AuthorsLoadedEvent } from '../../domain/load/AuthorsLoadedEvent';
+import { AuthorAggregateConverter } from './AuthorAggregateConverter';
 
 @Injectable()
 export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 
-	constructor(private store: Store<any>) {
+	constructor(private store: Store<any>,
+				private authorAggregateConverter: AuthorAggregateConverter) {
 		super();
 	}
 
@@ -27,19 +29,13 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 
 		if (Array.isArray(arg)) {
 
-			const authors = arg as Array<AuthorAggregate>;
+			const authors = arg as Array<AuthorAggregate>,
+				anemicAuthors = this.authorAggregateConverter.toArrayAnemia(authors);
 
 			this.store.dispatch({
 				type: AuthorsLoadedEvent.type,
-				payload: authors // toAnemia
+				payload: anemicAuthors
 			});
-
-
 		}
-
-
 	}
-
-
-
 }

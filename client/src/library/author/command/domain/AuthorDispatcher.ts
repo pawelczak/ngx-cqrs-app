@@ -11,7 +11,6 @@ export class AuthorDispatcher {
 	constructor(private authorAggregateRepository: AuthorAggregateRepository,
 				private authorResource: AuthorResource) {}
 
-
 	dispatch(command: LoadAuthorsCommand): void;
 	dispatch(command: LoadAuthorsCommand): void {
 		if (command instanceof LoadAuthorsCommand) {

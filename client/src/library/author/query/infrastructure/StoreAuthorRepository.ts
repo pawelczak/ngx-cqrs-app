@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, combineLatest } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthorRepository } from '../domain/AuthorRepository';
 import { Author } from '../domain/Author';
+import { AuthorState } from '../../command/infrastructure/store/AuthorState';
 
 @Injectable()
 export class StoreAuthorRepository extends AuthorRepository {
@@ -15,11 +16,10 @@ export class StoreAuthorRepository extends AuthorRepository {
 
 	selectAll(): Observable<Array<Author>> {
 
-		return this.selectEntities()
+		return this.selectState()
 				   .pipe(
-
-					   map((entities: any) => {
-
+					   map(state => state.entities),
+					   map((entities: { [key: string]: any }) => {
 						   return Object.keys(entities)
 										.map(id => entities[id])
 										.map((author: any) => {
@@ -33,8 +33,8 @@ export class StoreAuthorRepository extends AuthorRepository {
 		return undefined;
 	}
 
-	selectEntities(): Observable<{ [key: string]: Author }> {
-		return this.store.select(state => state.library.authors.entities);
+	selectState(): Observable<AuthorState> {
+		return this.store.select(state => state.library.authors);
 	}
 
 }

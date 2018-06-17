@@ -1,1 +1,6 @@
-export class AuthorStoreAnemia {}
+export class AuthorStoreAnemia {
+
+	constructor(public id: string,
+				public name: string) {}
+
+}

@@ -12,11 +12,16 @@ export function authorReducer(state: AuthorState = defaultState, action: any): A
 
 			const authors = action.payload as Array<AuthorStoreAnemia>;
 
-			return Object.assign(new AuthorState(), state, { entities: authors });
+			let authorsAsEntities = {};
+
+			authors.forEach((author: AuthorStoreAnemia) => {
+				authorsAsEntities[author.id] = author;
+			});
+
+			return Object.assign(new AuthorState(), state, { entities: authorsAsEntities });
 
 		default:
 			return state;
 
 	}
-
 }

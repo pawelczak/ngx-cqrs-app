@@ -13,6 +13,7 @@ import { AuthorResource } from '../../command/domain/AuthorResource';
 import { RestAuthorResource } from '../../command/infrastructure/rest/RestAuthorResource';
 import { AuthorAggregateRepository } from '../../command/domain/AuthorAggregateRepository';
 import { StoreAuthorAggregateRepository } from '../../command/infrastructure/store/StoreAuthorAggregateRepository';
+import { AuthorAggregateConverter } from '../../command/infrastructure/store/AuthorAggregateConverter';
 
 
 const providers: Array<Provider> = [
@@ -28,8 +29,8 @@ const providers: Array<Provider> = [
 		provide: AuthorAggregateRepository,
 		useClass: StoreAuthorAggregateRepository
 	},
-
-	AuthorDispatcher
+	AuthorDispatcher,
+	AuthorAggregateConverter
 ];
 
 @NgModule({

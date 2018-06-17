@@ -1,4 +1,5 @@
 export class AuthorAggregate {
 
-	constructor(public name: string) {}
+	constructor(public id: string,
+				public name: string) {}
 }

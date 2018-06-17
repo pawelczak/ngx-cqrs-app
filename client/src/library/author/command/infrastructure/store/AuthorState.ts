@@ -1,4 +1,6 @@
+import { AuthorStoreAnemia } from './AuthorStoreAnemia';
+
 export class AuthorState {
 
-	entities: {[key: string]: any};
+	entities: {[key: string]: AuthorStoreAnemia} = {};
 }
