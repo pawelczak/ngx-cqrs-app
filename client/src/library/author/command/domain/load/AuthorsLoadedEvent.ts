@@ -1,4 +1,4 @@
-import { AbstractEvent } from '../../../util/AbstractEvent';
+import { AbstractEvent } from '../../../util/cqrs/domain/AbstractEvent';
 
 export class AuthorsLoadedEvent extends AbstractEvent {
 

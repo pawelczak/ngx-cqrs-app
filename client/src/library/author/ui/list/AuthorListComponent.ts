@@ -5,6 +5,8 @@ import { LoadAuthorsCommand } from '../../command/domain/load/LoadAuthorsCommand
 
 import { AuthorRepository } from '../../query/domain/AuthorRepository';
 import { Author } from '../../query/domain/Author';
+import { CommandDispatcher } from '../../util/cqrs/domain/CommandDispatcher';
+import { CommandStream } from '../../util/cqrs/domain/CommandStream';
 
 @Component({
 	selector: 'sp-author-list',
@@ -16,6 +18,8 @@ export class AuthorListComponent implements OnInit {
 	authors: Array<Author>;
 
 	constructor(private injector: Injector,
+				private commandDispatcher: CommandDispatcher,
+				private commandStream: CommandStream,
 				private authorRepository: AuthorRepository,
 				private authorDispatcher: AuthorDispatcher) {
 
@@ -33,7 +37,9 @@ export class AuthorListComponent implements OnInit {
 				console.log(authors);
 			});
 
-		this.authorDispatcher.dispatch(new LoadAuthorsCommand());
+		this.commandDispatcher.dispatch(new LoadAuthorsCommand());
+
+		// this.authorDispatcher.dispatchCommand(new LoadAuthorsCommand());
 	}
 
 }

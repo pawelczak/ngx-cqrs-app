@@ -14,6 +14,9 @@ import { RestAuthorResource } from '../../command/infrastructure/rest/RestAuthor
 import { AuthorAggregateRepository } from '../../command/domain/AuthorAggregateRepository';
 import { StoreAuthorAggregateRepository } from '../../command/infrastructure/store/StoreAuthorAggregateRepository';
 import { AuthorAggregateConverter } from '../../command/infrastructure/store/AuthorAggregateConverter';
+import { CQRSModule } from '../../util/cqrs/CQRSModule';
+import { COMMAND_HANDLERS } from '../../util/cqrs/domain/COMMAND_HANDLERS';
+import { LoadAuthorCommandHandler } from '../../command/domain/LoadAuthorCommandHandler';
 
 
 const providers: Array<Provider> = [
@@ -30,7 +33,12 @@ const providers: Array<Provider> = [
 		useClass: StoreAuthorAggregateRepository
 	},
 	AuthorDispatcher,
-	AuthorAggregateConverter
+	AuthorAggregateConverter,
+	{
+		provide: COMMAND_HANDLERS,
+		useClass: LoadAuthorCommandHandler,
+		multi: true
+	}
 ];
 
 @NgModule({
@@ -41,6 +49,7 @@ const providers: Array<Provider> = [
 		}),
 		EffectsModule.forFeature([
 		]),
+		CQRSModule
 	],
 	declarations: [
 		AuthorListComponent

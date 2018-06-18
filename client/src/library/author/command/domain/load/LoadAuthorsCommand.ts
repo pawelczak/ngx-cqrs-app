@@ -1,4 +1,4 @@
-import { Command } from '../../../util/Command';
+import { Command } from '../../../util/cqrs/domain/Command';
 
 export class LoadAuthorsCommand extends Command {
 

@@ -1,4 +1,4 @@
-import { getUuidV4String } from '../../../util/uuid';
+import { getUuidV4String } from '../../../../../util/uuid';
 
 export abstract class Streamable {
 
