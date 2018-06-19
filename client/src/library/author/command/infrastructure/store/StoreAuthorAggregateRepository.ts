@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import { AuthorAggregateRepository } from '../../domain/AuthorAggregateRepository';
 import { AuthorAggregate } from '../../domain/AuthorAggregate';
-import { AuthorsLoadedEvent } from '../../domain/load/AuthorsLoadedEvent';
 import { AuthorAggregateConverter } from './AuthorAggregateConverter';
+import { AuthorsLoadedEvent } from '../../domain/AuthorEvents';
 
 @Injectable()
 export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {

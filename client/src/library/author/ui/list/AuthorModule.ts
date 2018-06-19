@@ -5,7 +5,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AuthorListComponent } from './AuthorListComponent';
 import { authorReducer } from '../../command/infrastructure/store/AuthorReducer';
-import { AuthorDispatcher } from '../../command/domain/AuthorDispatcher';
 
 import { AuthorRepository } from '../../query/domain/AuthorRepository';
 import { StoreAuthorRepository } from '../../query/infrastructure/StoreAuthorRepository';
@@ -16,7 +15,8 @@ import { StoreAuthorAggregateRepository } from '../../command/infrastructure/sto
 import { AuthorAggregateConverter } from '../../command/infrastructure/store/AuthorAggregateConverter';
 import { CQRSModule } from '../../util/cqrs/CQRSModule';
 import { COMMAND_HANDLERS } from '../../util/cqrs/domain/COMMAND_HANDLERS';
-import { LoadAuthorCommandHandler } from '../../command/domain/LoadAuthorCommandHandler';
+import { LoadAuthorCommandHandler } from '../../command/domain/handlers/LoadAuthorCommandHandler';
+import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
 
 
 const providers: Array<Provider> = [
@@ -32,7 +32,6 @@ const providers: Array<Provider> = [
 		provide: AuthorAggregateRepository,
 		useClass: StoreAuthorAggregateRepository
 	},
-	AuthorDispatcher,
 	AuthorAggregateConverter,
 	{
 		provide: COMMAND_HANDLERS,
@@ -49,7 +48,7 @@ const providers: Array<Provider> = [
 		}),
 		EffectsModule.forFeature([
 		]),
-		CQRSModule
+		CQRSModule.forRoot(CqrsStrategy.NGRX)
 	],
 	declarations: [
 		AuthorListComponent

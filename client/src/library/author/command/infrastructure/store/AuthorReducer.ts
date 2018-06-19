@@ -1,6 +1,6 @@
 import { AuthorState } from './AuthorState';
-import { AuthorsLoadedEvent } from '../../domain/load/AuthorsLoadedEvent';
 import { AuthorStoreAnemia } from './AuthorStoreAnemia';
+import { AuthorsLoadedEvent } from '../../domain/AuthorEvents';
 
 const defaultState = new AuthorState();
 

@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
 
-import { AuthorDispatcher } from '../../command/domain/AuthorDispatcher';
-import { LoadAuthorsCommand } from '../../command/domain/load/LoadAuthorsCommand';
-
+import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
 import { AuthorRepository } from '../../query/domain/AuthorRepository';
 import { Author } from '../../query/domain/Author';
+
 import { CommandDispatcher } from '../../util/cqrs/domain/CommandDispatcher';
 import { CommandStream } from '../../util/cqrs/domain/CommandStream';
 
@@ -20,26 +19,20 @@ export class AuthorListComponent implements OnInit {
 	constructor(private injector: Injector,
 				private commandDispatcher: CommandDispatcher,
 				private commandStream: CommandStream,
-				private authorRepository: AuthorRepository,
-				private authorDispatcher: AuthorDispatcher) {
-
+				private authorRepository: AuthorRepository) {
 
 		console.log((Injector.create({ providers: [], parent: this.injector })).toString());
-
 	}
-	//
+
 	ngOnInit() {
 
 		this.authorRepository
 			.selectAll()
 			.subscribe((authors) => {
 				this.authors = authors;
-				console.log(authors);
 			});
 
 		this.commandDispatcher.dispatch(new LoadAuthorsCommand());
-
-		// this.authorDispatcher.dispatchCommand(new LoadAuthorsCommand());
 	}
 
 }
