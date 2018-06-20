@@ -1,13 +1,13 @@
 import { Inject, ModuleWithProviders, NgModule, Provider } from '@angular/core';
 
-import { CommandStream } from './domain/CommandStream';
-import { FILTERED_COMMAND_STREAM } from './domain/FilteredCommandsStream';
-import { CommandBus } from './domain/CommandBus';
-import { CommandDispatcher } from './domain/CommandDispatcher';
-import { COMMAND_HANDLERS } from './domain/COMMAND_HANDLERS';
-import { LogCommandHandler } from './domain/LogCommandHandler';
-import { CommandHandler } from './domain/CommandHandler';
-import { Command } from './domain/Command';
+import { CommandStream } from './domain/command/CommandStream';
+import { FILTERED_COMMAND_STREAM } from './domain/command/FilteredCommandsStream';
+import { CommandBus } from './domain/command/CommandBus';
+import { CommandDispatcher } from './domain/command/CommandDispatcher';
+import { COMMAND_HANDLERS } from './domain/command/COMMAND_HANDLERS';
+import { LogCommandHandler } from './domain/command/LogCommandHandler';
+import { CommandHandler } from './domain/command/CommandHandler';
+import { Command } from './domain/command/Command';
 import { NgrxLoggerCommandHandler } from './infrastructure/ngrx/handlers/NgrxLoggerCommandHandler';
 import { CqrsStrategy } from './CqrsStrategy';
 

@@ -4,8 +4,8 @@ import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
 import { AuthorRepository } from '../../query/domain/AuthorRepository';
 import { Author } from '../../query/domain/Author';
 
-import { CommandDispatcher } from '../../util/cqrs/domain/CommandDispatcher';
-import { CommandStream } from '../../util/cqrs/domain/CommandStream';
+import { CommandDispatcher } from '../../util/cqrs/domain/command/CommandDispatcher';
+import { CommandStream } from '../../util/cqrs/domain/command/CommandStream';
 
 @Component({
 	selector: 'sp-author-list',

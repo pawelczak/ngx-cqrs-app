@@ -5,9 +5,9 @@ import { AuthorResource } from '../AuthorResource';
 import { AuthorAggregate } from '../AuthorAggregate';
 import { LoadAuthorsCommand } from '../AuthorCommands';
 
-import { CommandHandler } from '../../../util/cqrs/domain/CommandHandler';
-import { CommandDispatcher } from '../../../util/cqrs/domain/CommandDispatcher';
-import { CommandBus } from '../../../util/cqrs/domain/CommandBus';
+import { CommandHandler } from '../../../util/cqrs/domain/command/CommandHandler';
+import { CommandDispatcher } from '../../../util/cqrs/domain/command/CommandDispatcher';
+import { CommandBus } from '../../../util/cqrs/domain/command/CommandBus';
 
 @Injectable()
 export class LoadAuthorCommandHandler extends CommandHandler {

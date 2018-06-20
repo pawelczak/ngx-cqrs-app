@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { CommandHandler } from '../../../domain/CommandHandler';
-import { Command } from '../../../domain/Command';
+import { CommandHandler } from '../../../domain/command/CommandHandler';
+import { Command } from '../../../domain/command/Command';
 
 @Injectable()
 export class NgrxLoggerCommandHandler extends CommandHandler {

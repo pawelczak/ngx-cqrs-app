@@ -14,7 +14,7 @@ import { AuthorAggregateRepository } from '../../command/domain/AuthorAggregateR
 import { StoreAuthorAggregateRepository } from '../../command/infrastructure/store/StoreAuthorAggregateRepository';
 import { AuthorAggregateConverter } from '../../command/infrastructure/store/AuthorAggregateConverter';
 import { CQRSModule } from '../../util/cqrs/CQRSModule';
-import { COMMAND_HANDLERS } from '../../util/cqrs/domain/COMMAND_HANDLERS';
+import { COMMAND_HANDLERS } from '../../util/cqrs/domain/command/COMMAND_HANDLERS';
 import { LoadAuthorCommandHandler } from '../../command/domain/handlers/LoadAuthorCommandHandler';
 import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
 
