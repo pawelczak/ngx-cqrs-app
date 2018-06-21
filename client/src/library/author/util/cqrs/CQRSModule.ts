@@ -8,8 +8,14 @@ import { COMMAND_HANDLERS } from './domain/command/COMMAND_HANDLERS';
 import { LogCommandHandler } from './domain/command/LogCommandHandler';
 import { CommandHandler } from './domain/command/CommandHandler';
 import { Command } from './domain/command/Command';
-import { NgrxLoggerCommandHandler } from './infrastructure/ngrx/handlers/NgrxLoggerCommandHandler';
+import { NgrxLoggerCommandHandler } from './infrastructure/ngrx/command/NgrxLoggerCommandHandler';
 import { CqrsStrategy } from './CqrsStrategy';
+import { EventBus } from './domain/event/EventBus';
+import { EventDispatcher } from './domain/event/EventDispatcher';
+import { EventStream } from './domain/event/EventStream';
+import { EVENT_HANDLERS } from './domain/event/EVENT_HANDLERS';
+import { NgrxEventHandler } from './infrastructure/ngrx/event/NgrxEventHandler';
+import { EventHandler } from './domain/event/EventHandler';
 
 const handlers = [
 	{
@@ -24,6 +30,9 @@ const providers = [
 	CommandBus,
 	CommandStream,
 	CommandDispatcher,
+	EventBus,
+	EventStream,
+	EventDispatcher,
 	...handlers
 ];
 
@@ -31,6 +40,10 @@ const ngrxProviders: Array<Provider> = [
 	{
 		provide: COMMAND_HANDLERS,
 		useClass: NgrxLoggerCommandHandler,
+		multi: true
+	}, {
+		provide: EVENT_HANDLERS,
+		useClass: NgrxEventHandler,
 		multi: true
 	}
 ];
@@ -58,16 +71,27 @@ function populateProviders(strategies: CqrsStrategy = CqrsStrategy.NONE): Array<
 })
 export class CQRSModule {
 
-	constructor(@Inject(COMMAND_HANDLERS) private handlers: Array<CommandHandler>,
-				private commandBus: CommandBus) {
+	constructor(@Inject(COMMAND_HANDLERS) private commandHandlers: Array<CommandHandler>,
+				@Inject(EVENT_HANDLERS) private eventHandlers: Array<EventHandler>,
+				private commandBus: CommandBus,
+				private eventBus: EventBus) {
 		this.commandBus
 			.subscribe((command: Command) => {
 
-					this.handlers
+					this.commandHandlers
 						.forEach((handler: CommandHandler) => {
 							handler.execute(command);
 						});
 				});
+
+		this.eventBus
+			.subscribe((command: Command) => {
+
+				this.eventHandlers
+					.forEach((handler: EventHandler) => {
+						handler.execute(command);
+					});
+			});
 	}
 
 	static forRoot(strategies: CqrsStrategy = CqrsStrategy.NONE): ModuleWithProviders {

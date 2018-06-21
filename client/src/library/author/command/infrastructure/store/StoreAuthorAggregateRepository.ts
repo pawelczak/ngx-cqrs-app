@@ -7,10 +7,13 @@ import { AuthorAggregate } from '../../domain/AuthorAggregate';
 import { AuthorAggregateConverter } from './AuthorAggregateConverter';
 import { AuthorsLoadedEvent } from '../../domain/AuthorEvents';
 
+import { EventDispatcher } from '../../../util/cqrs/domain/event/EventDispatcher';
+
 @Injectable()
 export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 
 	constructor(private store: Store<any>,
+				private eventDispatcher: EventDispatcher,
 				private authorAggregateConverter: AuthorAggregateConverter) {
 		super();
 	}
@@ -32,10 +35,7 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 			const authors = arg as Array<AuthorAggregate>,
 				anemicAuthors = this.authorAggregateConverter.toArrayAnemia(authors);
 
-			this.store.dispatch({
-				type: AuthorsLoadedEvent.type,
-				payload: anemicAuthors
-			});
+			this.eventDispatcher.dispatch(new AuthorsLoadedEvent(anemicAuthors));
 		}
 	}
 }
