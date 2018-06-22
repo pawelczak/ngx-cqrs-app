@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { zip } from 'rxjs';
 
 import { AuthorAggregateRepository } from '../AuthorAggregateRepository';
 import { AuthorResource } from '../AuthorResource';
@@ -21,9 +22,23 @@ export class LoadAuthorCommandHandler extends CommandHandler {
 
 	execute(command: LoadAuthorsCommand): void {
 		if (command instanceof LoadAuthorsCommand) {
-			this.authorResource
-				.fetchAll()
-				.subscribe((aggregates: Array<AuthorAggregate>) => {
+
+
+			zip(this.authorResource.fetchAll(),
+				this.authorResource.fetchAllRatings())
+				.subscribe((responses: Array<any>) => {
+
+					const aggregates: Array<AuthorAggregate> = responses[0],
+						ratings: {[key: number]: number} = responses[1];
+
+					aggregates.forEach((aggregate: any) => {
+
+						if (ratings[aggregate.id]) {
+							aggregate.setRating(ratings[aggregate.id]);
+						}
+
+					});
+
 					this.authorAggregateRepository.save(aggregates);
 				});
 		}

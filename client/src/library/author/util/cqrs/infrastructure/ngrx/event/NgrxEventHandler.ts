@@ -14,7 +14,7 @@ export class NgrxEventHandler extends EventHandler {
 	execute(event: AbstractEvent): void {
 		this.store.dispatch({
 			type: event.constructor.name,
-			payload: event.data
+			payload: JSON.parse(JSON.stringify(event))
 		});
 	}
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
 
 import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
 import { AuthorRepository } from '../../query/domain/AuthorRepository';
@@ -17,8 +17,8 @@ export class AuthorListComponent implements OnInit {
 	authors: Array<Author>;
 
 	constructor(private injector: Injector,
+				private changeDetectorRef: ChangeDetectorRef,
 				private commandDispatcher: CommandDispatcher,
-				private commandStream: CommandStream,
 				private authorRepository: AuthorRepository) {
 
 		console.log((Injector.create({ providers: [], parent: this.injector })).toString());
@@ -30,6 +30,7 @@ export class AuthorListComponent implements OnInit {
 			.selectAll()
 			.subscribe((authors) => {
 				this.authors = authors;
+				this.changeDetectorRef.detectChanges();
 			});
 
 		this.commandDispatcher.dispatch(new LoadAuthorsCommand());

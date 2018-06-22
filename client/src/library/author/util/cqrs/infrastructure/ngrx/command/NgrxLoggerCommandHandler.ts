@@ -8,12 +8,13 @@ import { Command } from '../../../domain/command/Command';
 export class NgrxLoggerCommandHandler extends CommandHandler {
 
 	constructor(private store: Store<any>) {
-		super();}
+		super();
+	}
 
 	execute(command: Command): void {
 		this.store.dispatch({
 			type: command.constructor.name,
-			payload: Object.assign({}, command)
+			payload: JSON.parse(JSON.stringify(command))
 		});
 	}
 

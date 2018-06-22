@@ -7,5 +7,4 @@ export abstract class Streamable {
 	static get type(): string {
 		return this.prototype.constructor.name;
 	}
-
 }

@@ -1,6 +1,6 @@
 Authors
 
-<ul *ngIf="authors">
+<ul *ngIf="authors; else authorsLoading;">
 
 	<li *ngFor="let author of authors">
 		{{author.name}}
@@ -8,3 +8,6 @@ Authors
 
 </ul>
 
+<ng-template #authorsLoading>
+	Loading...
+</ng-template>

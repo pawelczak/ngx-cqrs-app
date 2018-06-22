@@ -10,7 +10,7 @@ export function authorReducer(state: AuthorState = defaultState, action: any): A
 
 		case AuthorsLoadedEvent.type:
 
-			const authors = action.payload as Array<AuthorStoreAnemia>;
+			const authors = action.payload.data as Array<AuthorStoreAnemia>;
 
 			let authorsAsEntities = {};
 

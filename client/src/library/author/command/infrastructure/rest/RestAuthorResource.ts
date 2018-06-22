@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import { AuthorAggregate } from '../../domain/AuthorAggregate';
 import { AuthorResource } from '../../domain/AuthorResource';
@@ -10,14 +11,24 @@ export class RestAuthorResource extends AuthorResource {
 
 	fetchAll(): Observable<Array<AuthorAggregate>> {
 		return of([
-			new AuthorAggregate('1', 'a'),
-			new AuthorAggregate('2', 'b'),
-			new AuthorAggregate('3', 'c')
-		]);
+				new AuthorAggregate('1', 'a'),
+				new AuthorAggregate('2', 'b'),
+				new AuthorAggregate('3', 'c')
+			])
+			.pipe(
+				delay(1000)
+			);
 	}
 
-	fetchRatings(ids: Array<string>): Observable<Array<number>> {
-		return of([1, 2]);
+	fetchAllRatings(): Observable<{ [key: number]: number }> {
+		return of({
+				1: 25,
+				2: 36,
+				3: 8
+			})
+			.pipe(
+				delay(1500)
+			);
 	}
 
 }
