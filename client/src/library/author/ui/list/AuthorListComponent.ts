@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
 
 import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
-import { AuthorRepository } from '../../query/domain/AuthorRepository';
-import { Author } from '../../query/domain/Author';
+import { AuthorQueryRepository } from '../../query/domain/AuthorQueryRepository';
+import { AuthorQuery } from '../../query/domain/AuthorQuery';
 
 import { CommandDispatcher } from '../../util/cqrs/domain/command/CommandDispatcher';
-import { CommandStream } from '../../util/cqrs/domain/command/CommandStream';
 
 @Component({
 	selector: 'sp-author-list',
@@ -14,12 +13,12 @@ import { CommandStream } from '../../util/cqrs/domain/command/CommandStream';
 })
 export class AuthorListComponent implements OnInit {
 
-	authors: Array<Author>;
+	authors: Array<AuthorQuery>;
 
 	constructor(private injector: Injector,
 				private changeDetectorRef: ChangeDetectorRef,
 				private commandDispatcher: CommandDispatcher,
-				private authorRepository: AuthorRepository) {
+				private authorRepository: AuthorQueryRepository) {
 
 		console.log((Injector.create({ providers: [], parent: this.injector })).toString());
 	}

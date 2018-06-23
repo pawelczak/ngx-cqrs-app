@@ -6,8 +6,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthorListComponent } from './AuthorListComponent';
 import { authorReducer } from '../../command/infrastructure/store/AuthorReducer';
 
-import { AuthorRepository } from '../../query/domain/AuthorRepository';
-import { StoreAuthorRepository } from '../../query/infrastructure/StoreAuthorRepository';
+import { AuthorQueryRepository } from '../../query/domain/AuthorQueryRepository';
+import { StoreAuthorQueryRepository } from '../../query/infrastructure/StoreAuthorQueryRepository';
 import { AuthorResource } from '../../command/domain/AuthorResource';
 import { RestAuthorResource } from '../../command/infrastructure/rest/RestAuthorResource';
 import { AuthorAggregateRepository } from '../../command/domain/AuthorAggregateRepository';
@@ -25,8 +25,8 @@ const providers: Array<Provider> = [
 		useClass: RestAuthorResource
 	},
 	{
-		provide: AuthorRepository,
-		useClass: StoreAuthorRepository
+		provide: AuthorQueryRepository,
+		useClass: StoreAuthorQueryRepository
 	},
 	{
 		provide: AuthorAggregateRepository,

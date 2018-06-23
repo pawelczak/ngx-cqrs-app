@@ -3,11 +3,13 @@ Authors
 <ul *ngIf="authors; else authorsLoading;">
 
 	<li *ngFor="let author of authors">
-		{{author.name}}
+		{{author.name}} - {{author.rating}}
 	</li>
 
 </ul>
 
 <ng-template #authorsLoading>
-	Loading...
+	<div>
+		Loading...
+	</div>
 </ng-template>
