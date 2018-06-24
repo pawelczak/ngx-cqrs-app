@@ -1,4 +1,6 @@
 export class AuthorQuery {
-	constructor(public name: string,
-				public rating: number) {}
+	constructor(public id: string,
+				public name: string,
+				public rating: number) {
+	}
 }

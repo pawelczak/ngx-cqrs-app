@@ -1,6 +1,6 @@
 import { AuthorState } from './AuthorState';
 import { AuthorStoreAnemia } from './AuthorStoreAnemia';
-import { AuthorsLoadedEvent } from '../../domain/AuthorEvents';
+import { AuthorChangedEvent, AuthorsLoadedEvent } from '../../domain/AuthorEvents';
 
 const defaultState = new AuthorState();
 
@@ -19,6 +19,16 @@ export function authorReducer(state: AuthorState = defaultState, action: any): A
 			});
 
 			return Object.assign(new AuthorState(), state, { entities: authorsAsEntities });
+
+		case AuthorChangedEvent.type:
+
+			const author = action.payload.data as AuthorStoreAnemia;
+
+			const afterChangeEntities = {...state.entities};
+
+			afterChangeEntities[author.id] = author;
+
+			return Object.assign(new AuthorState(), state, { entities: afterChangeEntities });
 
 		default:
 			return state;

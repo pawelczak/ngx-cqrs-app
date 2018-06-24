@@ -75,12 +75,15 @@ export class CQRSModule {
 				@Inject(EVENT_HANDLERS) private eventHandlers: Array<EventHandler>,
 				private commandBus: CommandBus,
 				private eventBus: EventBus) {
+
 		this.commandBus
 			.subscribe((command: Command) => {
 
 					this.commandHandlers
 						.forEach((handler: CommandHandler) => {
-							handler.execute(command);
+							if (handler.forCommand(command)) {
+								handler.execute(command);
+							}
 						});
 				});
 

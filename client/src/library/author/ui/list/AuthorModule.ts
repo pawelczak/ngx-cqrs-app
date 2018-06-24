@@ -5,7 +5,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AuthorListComponent } from './AuthorListComponent';
 import { authorReducer } from '../../command/infrastructure/store/AuthorReducer';
-
 import { AuthorQueryRepository } from '../../query/domain/AuthorQueryRepository';
 import { StoreAuthorQueryRepository } from '../../query/infrastructure/StoreAuthorQueryRepository';
 import { AuthorResource } from '../../command/domain/AuthorResource';
@@ -13,11 +12,10 @@ import { RestAuthorResource } from '../../command/infrastructure/rest/RestAuthor
 import { AuthorAggregateRepository } from '../../command/domain/AuthorAggregateRepository';
 import { StoreAuthorAggregateRepository } from '../../command/infrastructure/store/StoreAuthorAggregateRepository';
 import { AuthorAggregateConverter } from '../../command/infrastructure/store/AuthorAggregateConverter';
-import { CQRSModule } from '../../util/cqrs/CQRSModule';
-import { COMMAND_HANDLERS } from '../../util/cqrs/domain/command/COMMAND_HANDLERS';
-import { LoadAuthorCommandHandler } from '../../command/domain/handlers/LoadAuthorCommandHandler';
-import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
 
+import { CQRSModule } from '../../util/cqrs/CQRSModule';
+import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
+import { commandHandlerProviders } from '../../command/domain/handlers/commandHandlerProviders';
 
 const providers: Array<Provider> = [
 	{
@@ -33,11 +31,7 @@ const providers: Array<Provider> = [
 		useClass: StoreAuthorAggregateRepository
 	},
 	AuthorAggregateConverter,
-	{
-		provide: COMMAND_HANDLERS,
-		useClass: LoadAuthorCommandHandler,
-		multi: true
-	}
+	...commandHandlerProviders
 ];
 
 @NgModule({

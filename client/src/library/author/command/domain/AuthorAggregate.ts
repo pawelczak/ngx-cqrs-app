@@ -9,6 +9,10 @@ export class AuthorAggregate {
 		this.rating = rating;
 	}
 
+	incRating(): void {
+		this.rating++;
+	}
+
 	getRating(): number {
 		return this.rating;
 	}

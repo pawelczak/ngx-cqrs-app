@@ -25,7 +25,7 @@ export class StoreAuthorQueryRepository extends AuthorQueryRepository {
 						   return Object.keys(entities)
 										.map(id => entities[id])
 										.map((author: any) => {
-											return new AuthorQuery(author.name, author.rating);
+											return new AuthorQuery(author.id, author.name, author.rating);
 										});
 					   })
 				   );

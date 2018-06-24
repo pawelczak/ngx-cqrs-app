@@ -8,7 +8,7 @@ import { Command } from '../../../domain/command/Command';
 export class NgrxLoggerCommandHandler extends CommandHandler {
 
 	constructor(private store: Store<any>) {
-		super();
+		super(Command.type);
 	}
 
 	execute(command: Command): void {

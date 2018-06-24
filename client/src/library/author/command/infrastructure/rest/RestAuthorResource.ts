@@ -31,4 +31,8 @@ export class RestAuthorResource extends AuthorResource {
 			);
 	}
 
+	updateRating(authorAggregate: AuthorAggregate): Observable<void> {
+		return of(null);
+	}
+
 }

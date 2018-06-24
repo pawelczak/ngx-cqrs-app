@@ -8,4 +8,5 @@ export abstract class AuthorResource {
 
 	abstract fetchAllRatings(): Observable<{[key: number]: number}>;
 
+	abstract updateRating(authorAggregate: AuthorAggregate): Observable<void>;
 }

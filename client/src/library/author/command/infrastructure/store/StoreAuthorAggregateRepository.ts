@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { AuthorAggregateRepository } from '../../domain/AuthorAggregateRepository';
 import { AuthorAggregate } from '../../domain/AuthorAggregate';
 import { AuthorAggregateConverter } from './AuthorAggregateConverter';
-import { AuthorsLoadedEvent } from '../../domain/AuthorEvents';
+import { AuthorChangedEvent, AuthorsLoadedEvent } from '../../domain/AuthorEvents';
 
 import { EventDispatcher } from '../../../util/cqrs/domain/event/EventDispatcher';
+import { AuthorState } from './AuthorState';
 
 @Injectable()
 export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
@@ -18,8 +20,20 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 		super();
 	}
 
-	selectOne(authorId: string): Observable<AuthorAggregate> {
-		return undefined;
+	selectOne(aggregateId: string): Observable<AuthorAggregate> {
+		return this.selectState()
+				   .pipe(
+					   map(entities => entities[aggregateId]),
+					   map((author: any) => {
+
+						   const authorAggregate = new AuthorAggregate(author.id, author.name);
+
+						   authorAggregate.setRating(author.rating);
+
+						   return authorAggregate;
+					   }),
+					   take(1)
+				   );
 	}
 
 	selectAll(): Observable<Array<AuthorAggregate>> {
@@ -30,6 +44,13 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 	save(authors: Array<AuthorAggregate>): void;
 	save(arg: any): void {
 
+		if (arg instanceof AuthorAggregate) {
+			const author = arg as AuthorAggregate,
+				anemicAuthor = this.authorAggregateConverter.toAnemia(author);
+
+			this.eventDispatcher.dispatch(new AuthorChangedEvent(anemicAuthor));
+		}
+
 		if (Array.isArray(arg)) {
 
 			const authors = arg as Array<AuthorAggregate>,
@@ -38,4 +59,9 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 			this.eventDispatcher.dispatch(new AuthorsLoadedEvent(anemicAuthors));
 		}
 	}
+
+	private selectState(): Observable<AuthorState> {
+		return this.store.select(state => state.library.authors.entities);
+	}
+
 }

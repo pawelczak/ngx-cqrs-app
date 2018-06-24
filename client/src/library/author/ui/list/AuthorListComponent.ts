@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
 
-import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
+import { IncAuthorRatingCommand, LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
 import { AuthorQueryRepository } from '../../query/domain/AuthorQueryRepository';
 import { AuthorQuery } from '../../query/domain/AuthorQuery';
 
@@ -33,6 +33,10 @@ export class AuthorListComponent implements OnInit {
 			});
 
 		this.commandDispatcher.dispatch(new LoadAuthorsCommand());
+	}
+
+	increaseAuthorsRating(authorId: string): void {
+		this.commandDispatcher.dispatch(new IncAuthorRatingCommand(authorId));
 	}
 
 }

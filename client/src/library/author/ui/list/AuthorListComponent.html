@@ -3,7 +3,7 @@ Authors
 <ul *ngIf="authors; else authorsLoading;">
 
 	<li *ngFor="let author of authors">
-		{{author.name}} - {{author.rating}}
+		{{author.name}} - {{author.rating}} <button (click)="increaseAuthorsRating(author.id)" >+</button>
 	</li>
 
 </ul>

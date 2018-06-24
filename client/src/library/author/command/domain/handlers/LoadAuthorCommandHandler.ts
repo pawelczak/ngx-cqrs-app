@@ -17,30 +17,26 @@ export class LoadAuthorCommandHandler extends CommandHandler {
 				private commandDispatcher: CommandDispatcher,
 				private authorAggregateRepository: AuthorAggregateRepository,
 				private authorResource: AuthorResource) {
-		super();
+		super(LoadAuthorsCommand.type);
 	}
 
 	execute(command: LoadAuthorsCommand): void {
-		if (command instanceof LoadAuthorsCommand) {
+		zip(this.authorResource.fetchAll(),
+			this.authorResource.fetchAllRatings())
+			.subscribe((responses: Array<any>) => {
 
+				const aggregates: Array<AuthorAggregate> = responses[0],
+					ratings: {[key: number]: number} = responses[1];
 
-			zip(this.authorResource.fetchAll(),
-				this.authorResource.fetchAllRatings())
-				.subscribe((responses: Array<any>) => {
+				aggregates.forEach((aggregate: any) => {
 
-					const aggregates: Array<AuthorAggregate> = responses[0],
-						ratings: {[key: number]: number} = responses[1];
+					if (ratings[aggregate.id]) {
+						aggregate.setRating(ratings[aggregate.id]);
+					}
 
-					aggregates.forEach((aggregate: any) => {
-
-						if (ratings[aggregate.id]) {
-							aggregate.setRating(ratings[aggregate.id]);
-						}
-
-					});
-
-					this.authorAggregateRepository.save(aggregates);
 				});
-		}
+
+				this.authorAggregateRepository.save(aggregates);
+			});
 	}
 }

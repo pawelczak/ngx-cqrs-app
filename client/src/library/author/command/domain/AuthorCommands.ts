@@ -7,3 +7,11 @@ export class LoadAuthorsCommand extends Command {
 	}
 
 }
+
+export class IncAuthorRatingCommand extends Command {
+
+	constructor(public aggregateId: string) {
+		super();
+	}
+
+}
