@@ -16,6 +16,8 @@ import { EventStream } from './domain/event/EventStream';
 import { EVENT_HANDLERS } from './domain/event/EVENT_HANDLERS';
 import { NgrxEventHandler } from './infrastructure/ngrx/event/NgrxEventHandler';
 import { EventHandler } from './domain/event/EventHandler';
+import { CqrsForRootModule } from './CqrsForRootModule';
+import { CqrsForFeatureModule } from './CqrsForFeatureModule';
 
 const handlers = [
 	{
@@ -71,36 +73,17 @@ function populateProviders(strategies: CqrsStrategy = CqrsStrategy.NONE): Array<
 })
 export class CQRSModule {
 
-	constructor(@Inject(COMMAND_HANDLERS) private commandHandlers: Array<CommandHandler>,
-				@Inject(EVENT_HANDLERS) private eventHandlers: Array<EventHandler>,
-				private commandBus: CommandBus,
-				private eventBus: EventBus) {
-
-		this.commandBus
-			.subscribe((command: Command) => {
-
-					this.commandHandlers
-						.forEach((handler: CommandHandler) => {
-							if (handler.forCommand(command)) {
-								handler.execute(command);
-							}
-						});
-				});
-
-		this.eventBus
-			.subscribe((command: Command) => {
-
-				this.eventHandlers
-					.forEach((handler: EventHandler) => {
-						handler.execute(command);
-					});
-			});
-	}
-
 	static forRoot(strategies: CqrsStrategy = CqrsStrategy.NONE): ModuleWithProviders {
 		return {
-			ngModule: CQRSModule,
+			ngModule: CqrsForRootModule,
 			providers: populateProviders(strategies)
+		};
+	}
+
+	static forFeature(strategies: CqrsStrategy = CqrsStrategy.NONE): ModuleWithProviders {
+		return {
+			ngModule: CqrsForFeatureModule,
+			providers: []
 		};
 	}
 }

@@ -10,18 +10,23 @@ import { AppComponent } from './app.component';
 
 // import { BookManagerModule } from '../library/book/ui/book/manager/BookManagerModule';
 import { AuthorModule } from '../library/author/ui/list/AuthorModule';
+import { CQRSModule } from '../library/author/util/cqrs/CQRSModule';
+import { CqrsStrategy } from '../library/author/util/cqrs/CqrsStrategy';
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(routes),
 		// BookManagerModule.forRoot({ rest: true }),
-		AuthorModule.forRoot(),
 		StoreModule.forRoot({}),
 		EffectsModule.forRoot([]),
 		StoreDevtoolsModule.instrument({
 			maxAge: 10
-		})
+		}),
+
+		CQRSModule.forRoot(CqrsStrategy.NGRX),
+
+		AuthorModule.forRoot()
 	],
 	declarations: [
 		AppComponent

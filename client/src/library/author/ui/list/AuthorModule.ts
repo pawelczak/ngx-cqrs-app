@@ -16,6 +16,7 @@ import { AuthorAggregateConverter } from '../../command/infrastructure/store/Aut
 import { CQRSModule } from '../../util/cqrs/CQRSModule';
 import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
 import { commandHandlerProviders } from '../../command/domain/handlers/commandHandlerProviders';
+import { ArticleModule } from '../../../article/app/ArticleModule';
 
 const providers: Array<Provider> = [
 	{
@@ -42,7 +43,8 @@ const providers: Array<Provider> = [
 		}),
 		EffectsModule.forFeature([
 		]),
-		CQRSModule.forRoot(CqrsStrategy.NGRX)
+		CQRSModule.forFeature(),
+		ArticleModule.forRoot()
 	],
 	declarations: [
 		AuthorListComponent
