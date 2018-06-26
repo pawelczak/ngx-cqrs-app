@@ -1,0 +1,22 @@
+{{author.name}} - {{author.rating}}
+<button (click)="increaseAuthorsRating(author.id)">+</button>
+
+<div *ngIf="author.hasContributions()">
+	Contributions No:
+	<ng-container>{{author.getContributions().length}}</ng-container>
+
+
+	<button *ngIf="!showMore"
+			(click)="showContributions()" >
+		Show more
+	</button>
+
+	<ul *ngIf="showMore">
+
+		Articles:
+		<li *ngFor="let contrib of author.getContributions()">
+			{{contrib.title}}
+		</li>
+
+	</ul>
+</div>

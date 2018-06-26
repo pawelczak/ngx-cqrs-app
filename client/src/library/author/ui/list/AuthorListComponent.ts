@@ -7,7 +7,7 @@ import { AuthorQuery } from '../../query/domain/AuthorQuery';
 import { CommandDispatcher } from '../../util/cqrs/domain/command/CommandDispatcher';
 
 @Component({
-	selector: 'sp-author-list',
+	selector: 'cqrs-author-list',
 	templateUrl: './AuthorListComponent.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -33,8 +33,6 @@ export class AuthorListComponent implements OnInit {
 		this.commandDispatcher.dispatch(new LoadAuthorsCommand());
 	}
 
-	increaseAuthorsRating(authorId: string): void {
-		this.commandDispatcher.dispatch(new IncAuthorRatingCommand(authorId));
-	}
+
 
 }

@@ -3,12 +3,11 @@ Authors
 <ul *ngIf="authors; else authorsLoading;">
 
 	<li *ngFor="let author of authors">
-		{{author.name}} - {{author.rating}} <button (click)="increaseAuthorsRating(author.id)" >+</button>
 
-		<p *ngIf="author.hasContributions()">
-			Contributions No:<ng-container>{{author.getContributions().length}}</ng-container>
-			<button>Show more</button>
-		</p>
+		<cqrs-author-panel
+				[author]="author">
+		</cqrs-author-panel>
+
 	</li>
 
 </ul>

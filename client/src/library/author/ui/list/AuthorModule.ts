@@ -17,6 +17,7 @@ import { CQRSModule } from '../../util/cqrs/CQRSModule';
 import { CqrsStrategy } from '../../util/cqrs/CqrsStrategy';
 import { commandHandlerProviders } from '../../command/domain/handlers/commandHandlerProviders';
 import { ArticleModule } from '../../../article/app/ArticleModule';
+import { AuthorPanelComponent } from './authorpanel/AuthorPanelComponent';
 
 const providers: Array<Provider> = [
 	{
@@ -47,7 +48,8 @@ const providers: Array<Provider> = [
 		ArticleModule.forRoot()
 	],
 	declarations: [
-		AuthorListComponent
+		AuthorListComponent,
+		AuthorPanelComponent
 	]
 })
 export class AuthorModule {
