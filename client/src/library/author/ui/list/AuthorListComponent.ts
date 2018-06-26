@@ -19,8 +19,6 @@ export class AuthorListComponent implements OnInit {
 				private changeDetectorRef: ChangeDetectorRef,
 				private commandDispatcher: CommandDispatcher,
 				private authorRepository: AuthorQueryRepository) {
-
-		console.log((Injector.create({ providers: [], parent: this.injector })).toString());
 	}
 
 	ngOnInit() {

@@ -1,24 +1,34 @@
-import { Observable } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, switchMap, map } from 'rxjs/operators';
 
 import { AuthorQuery } from './AuthorQuery';
 
-import { EventBus } from '../../util/cqrs/domain/event/EventBus';
-import { AbstractEvent } from '../../util/cqrs/domain/event/AbstractEvent';
-import { AuthorsLoadedEvent } from '../../command/domain/AuthorEvents';
+import { ArticleQuery } from '../../../article/domain/query/ArticleQuery';
+import { ArticleQueryRepository } from '../../../article/domain/query/ArticleQueryRepository';
 
 export abstract class AuthorQueryRepository {
 
-	constructor(protected eventBus: EventBus) {
+	constructor(protected articleQueryRepository: ArticleQueryRepository) {
 	}
 
 	selectAll(): Observable<Array<AuthorQuery>> {
 
-		return this.eventBus
-				   .pipe(
-					   filter((event: AbstractEvent) => event.constructor.name === AuthorsLoadedEvent.type),
-					   switchMap(() => this.selectAuthorsFromState())
-				   );
+		const articles$ = this.articleQueryRepository.selectAll(),
+			authors$ = this.selectAuthorsFromState();
+
+		return combineLatest(authors$, articles$)
+			.pipe(
+				map((responses) => {
+					const authors: Array<AuthorQuery> = responses[0],
+						articles: Array<ArticleQuery> = responses[1];
+
+					authors.forEach((author) => {
+						author.setContributions(articles);
+					});
+
+					return authors;
+				})
+			);
 	}
 
 	abstract selectOne(): Observable<AuthorQuery>;

@@ -7,7 +7,12 @@ import { AuthorAggregate } from '../../domain/AuthorAggregate';
 export class AuthorAggregateConverter {
 
 	toAnemia(aggregate: AuthorAggregate): AuthorStoreAnemia {
-		return new AuthorStoreAnemia(aggregate.id, aggregate.name, aggregate.getRating());
+		return new AuthorStoreAnemia(
+			aggregate.id,
+			aggregate.name,
+			aggregate.contributions,
+			aggregate.getRating()
+		);
 	}
 
 	toArrayAnemia(aggregates: Array<AuthorAggregate>): Array<AuthorStoreAnemia> {

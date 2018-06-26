@@ -26,7 +26,7 @@ export class StoreAuthorAggregateRepository extends AuthorAggregateRepository {
 					   map(entities => entities[aggregateId]),
 					   map((author: any) => {
 
-						   const authorAggregate = new AuthorAggregate(author.id, author.name);
+						   const authorAggregate = new AuthorAggregate(author.id, author.name, author.contributions);
 
 						   authorAggregate.setRating(author.rating);
 

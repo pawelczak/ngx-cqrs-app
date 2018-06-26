@@ -6,11 +6,17 @@ import { ArticleQueryRepository } from '../domain/query/ArticleQueryRepository';
 import { NgrxArticleQueryRepository } from '../infrastructure/ngrx/query/NgrxArticleQueryRepository';
 import { articleReducer } from '../infrastructure/ngrx/ArticleReducer';
 import { CQRSModule } from '../../author/util/cqrs/CQRSModule';
+import { ArticleAggregateRepository } from '../domain/command/ArticleAggregateRepository';
+import { NgrxArticleAggregateRepository } from '../infrastructure/ngrx/command/NgrxArticleAggregateRepository';
 
 const providers = [
 	{
 		provide: ArticleQueryRepository,
 		useClass: NgrxArticleQueryRepository
+	},
+	{
+		provide: ArticleAggregateRepository,
+		useClass: NgrxArticleAggregateRepository
 	}
 ];
 

@@ -6,14 +6,14 @@ import { map } from 'rxjs/operators';
 import { AuthorQueryRepository } from '../domain/AuthorQueryRepository';
 import { AuthorQuery } from '../domain/AuthorQuery';
 import { AuthorState } from '../../command/infrastructure/store/AuthorState';
-import { EventBus } from '../../util/cqrs/domain/event/EventBus';
+import { ArticleQueryRepository } from '../../../article/domain/query/ArticleQueryRepository';
 
 @Injectable()
 export class StoreAuthorQueryRepository extends AuthorQueryRepository {
 
 	constructor(private store: Store<any>,
-				eventBus: EventBus) {
-		super(eventBus);
+				articleQueryRepository: ArticleQueryRepository) {
+		super(articleQueryRepository);
 	}
 
 	selectAuthorsFromState(): Observable<Array<AuthorQuery>> {
@@ -25,7 +25,11 @@ export class StoreAuthorQueryRepository extends AuthorQueryRepository {
 						   return Object.keys(entities)
 										.map(id => entities[id])
 										.map((author: any) => {
-											return new AuthorQuery(author.id, author.name, author.rating);
+											return new AuthorQuery(
+												author.id,
+												author.name,
+												author.rating,
+												author.contributions);
 										});
 					   })
 				   );
