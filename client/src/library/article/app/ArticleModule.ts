@@ -1,33 +1,33 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 
-import { ArticleQueryRepository } from '../domain/query/ArticleQueryRepository';
-import { NgrxArticleQueryRepository } from '../infrastructure/ngrx/query/NgrxArticleQueryRepository';
 import { articleReducer } from '../infrastructure/ngrx/ArticleReducer';
 import { CQRSModule } from '../../author/util/cqrs/CQRSModule';
-import { ArticleAggregateRepository } from '../domain/command/ArticleAggregateRepository';
-import { NgrxArticleAggregateRepository } from '../infrastructure/ngrx/command/NgrxArticleAggregateRepository';
+import { ArticleCommandModule } from './ArticleCommandModule';
+import { ArticleQueryModule } from './ArticleQueryModule';
+import { ARTICLE_STORE_NAME } from '../infrastructure/ngrx/NgrxArticleStoreName';
 
-const providers = [
+const storeName = 'articles';
+
+const providers: Array<Provider> = [
 	{
-		provide: ArticleQueryRepository,
-		useClass: NgrxArticleQueryRepository
-	},
-	{
-		provide: ArticleAggregateRepository,
-		useClass: NgrxArticleAggregateRepository
+		provide: ARTICLE_STORE_NAME,
+		useValue: storeName
 	}
 ];
 
 @NgModule({
 	imports: [
-		StoreModule.forFeature('articles', {
+		StoreModule.forFeature(storeName, {
 			articles: articleReducer
 		}),
-		EffectsModule.forFeature([
-		]),
-		CQRSModule.forFeature()
+		CQRSModule.forFeature({
+			storeName: storeName,
+			reducer: articleReducer
+		}),
+
+		ArticleCommandModule.forRoot(),
+		ArticleQueryModule.forRoot()
 	]
 })
 export class ArticleModule {

@@ -9,7 +9,7 @@ import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 
 // import { BookManagerModule } from '../library/book/ui/book/manager/BookManagerModule';
-import { AuthorModule } from '../library/author/ui/list/AuthorModule';
+import { AuthorModule } from '../library/author/app/AuthorModule';
 import { CQRSModule } from '../library/author/util/cqrs/CQRSModule';
 import { CqrsStrategy } from '../library/author/util/cqrs/CqrsStrategy';
 

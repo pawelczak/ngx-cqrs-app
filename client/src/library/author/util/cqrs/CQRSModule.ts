@@ -80,7 +80,10 @@ export class CQRSModule {
 		};
 	}
 
-	static forFeature(strategies: CqrsStrategy = CqrsStrategy.NONE): ModuleWithProviders {
+	static forFeature(config: {
+		storeName: string,
+		reducer: any
+	}): ModuleWithProviders {
 		return {
 			ngModule: CqrsForFeatureModule,
 			providers: []
