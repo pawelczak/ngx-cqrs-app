@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, Operator } from 'rxjs';
 
-import { AbstractEvent } from './AbstractEvent';
+import { DomainEvent } from './DomainEvent';
 import { EventStream } from './EventStream';
 
 @Injectable()
-export class EventBus<C = AbstractEvent> extends Observable<C> {
+export class EventBus<C = DomainEvent> extends Observable<C> {
 
 	constructor(eventStream?: EventStream) {
 		super();

@@ -17,12 +17,7 @@ import { CqrsStrategy } from '../library/author/util/cqrs/CqrsStrategy';
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(routes),
-		// BookManagerModule.forRoot({ rest: true }),
-		StoreModule.forRoot({}),
-		EffectsModule.forRoot([]),
-		StoreDevtoolsModule.instrument({
-			maxAge: 10
-		}),
+		// BookManagerModule.forRoot({ rest: true })
 
 		CQRSModule.forRoot(CqrsStrategy.NGRX),
 

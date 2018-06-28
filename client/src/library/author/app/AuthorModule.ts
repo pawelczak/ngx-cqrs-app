@@ -1,7 +1,5 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { EffectsModule } from '@ngrx/effects';
 
 import { AuthorListComponent } from '../ui/list/AuthorListComponent';
 import { authorReducer } from '../command/infrastructure/store/AuthorReducer';
@@ -40,14 +38,11 @@ const providers: Array<Provider> = [
 @NgModule({
 	imports: [
 		CommonModule,
-		StoreModule.forFeature(storeName, {
-			authors: authorReducer
-		}),
-		EffectsModule.forFeature([
-		]),
 		CQRSModule.forFeature({
 			storeName: storeName,
-			reducer: authorReducer
+			states: {
+				authors: authorReducer
+			}
 		}),
 
 		ArticleModule.forRoot()

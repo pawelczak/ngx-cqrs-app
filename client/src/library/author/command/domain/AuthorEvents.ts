@@ -1,18 +1,18 @@
-import { AbstractEvent } from '../../util/cqrs/domain/event/AbstractEvent';
+import { DomainEvent } from '../../util/cqrs/domain/event/DomainEvent';
 
-export class AuthorsLoadedEvent extends AbstractEvent {
+export class AuthorsLoadedEvent extends DomainEvent {
 	constructor(public data: any){
 		super();
 	}
 }
 
-export class AuthorChangedEvent extends AbstractEvent {
+export class AuthorChangedEvent extends DomainEvent {
 	constructor(public data: any) {
 		super();
 	}
 }
 
-export class IncAuthorRatingEvent extends AbstractEvent {
+export class IncAuthorRatingEvent extends DomainEvent {
 	constructor(public aggregateId: any) {
 		super();
 	}

@@ -1,6 +1,6 @@
-import { AbstractEvent } from './AbstractEvent';
+import { DomainEvent } from './DomainEvent';
 
 export abstract class EventHandler {
 
-	abstract execute(event: AbstractEvent): void;
+	abstract execute(event: DomainEvent): void;
 }
