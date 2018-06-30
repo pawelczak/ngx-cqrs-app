@@ -28,7 +28,7 @@ export class NgrxArticleAggregateRepository extends ArticleAggregateRepository {
 					   map((entities: { [key: string]: ArticleStoreAnemia }) => {
 						   return Object.keys(entities)
 										.map((article: any) => {
-											return new ArticleAggregate(article.id, article.title, article.content);
+											return new ArticleAggregate(article.id, article.title, article.content, article.yearOfPublication);
 										});
 					   })
 				   )

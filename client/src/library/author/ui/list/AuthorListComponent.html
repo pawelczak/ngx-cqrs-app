@@ -1,16 +1,10 @@
-Authors
+<div *ngIf="authors; else authorsLoading;">
 
-<ul *ngIf="authors; else authorsLoading;">
+	<cqrs-author-panel *ngFor="let author of authors"
+			[author]="author">
+	</cqrs-author-panel>
 
-	<li *ngFor="let author of authors">
-
-		<cqrs-author-panel
-				[author]="author">
-		</cqrs-author-panel>
-
-	</li>
-
-</ul>
+</div>
 
 <ng-template #authorsLoading>
 	<div>

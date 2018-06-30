@@ -1,22 +1,38 @@
-{{author.name}} - {{author.rating}}
-<button (click)="increaseAuthorsRating(author.id)">+</button>
+<mat-card>
 
-<div *ngIf="author.hasContributions()">
-	Contributions No:
-	<ng-container>{{author.getContributions().length}}</ng-container>
+	<mat-card-title>{{author.name}}</mat-card-title>
 
+	<mat-card-content>
+		<p>
+			{{author.desc}}
+		</p>
+	</mat-card-content>
 
-	<button *ngIf="!showMore"
-			(click)="showContributions()" >
-		Show more
-	</button>
+	<div *ngIf="author.hasContributions()">
+		Contributions No:
+		<ng-container>{{author.getContributions().length}}</ng-container>
 
-	<ul *ngIf="showMore">
+		<button *ngIf="!showMore"
+				mat-raised-button
+				color="primary"
+				(click)="showContributions()" >
+			Show more
+		</button>
 
-		Articles:
-		<li *ngFor="let contrib of author.getContributions()">
-			{{contrib.title}}
-		</li>
+		<ul *ngIf="showMore">
 
-	</ul>
-</div>
+			Articles:
+			<li *ngFor="let contrib of author.getContributions()">
+				{{contrib.title}}
+			</li>
+
+		</ul>
+	</div>
+
+	<mat-card-actions>
+		<button mat-raised-button
+				(click)="increaseAuthorsRating(author.id)">
+			{{author.rating}} LIKE
+		</button>
+	</mat-card-actions>
+</mat-card>

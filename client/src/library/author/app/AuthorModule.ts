@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatButtonModule, MatCardModule } from '@angular/material';
+
 import { AuthorListComponent } from '../ui/list/AuthorListComponent';
 import { authorReducer } from '../command/infrastructure/store/AuthorReducer';
 import { AuthorQueryRepository } from '../query/domain/AuthorQueryRepository';
@@ -38,6 +40,8 @@ const providers: Array<Provider> = [
 @NgModule({
 	imports: [
 		CommonModule,
+		MatCardModule,
+		MatButtonModule,
 		CQRSModule.forFeature({
 			storeName: storeName,
 			states: {

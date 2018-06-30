@@ -7,7 +7,7 @@ import { ArticleAggregate } from '../../domain/command/ArticleAggregate';
 export class NgrxArticleConverter {
 
 	convert(article: ArticleAggregate): ArticleStoreAnemia {
-		return new ArticleStoreAnemia(article.getId(), article.getTitle(), article.getContent());
+		return new ArticleStoreAnemia(article.getId(), article.getTitle(), article.getContent(), article.getYearOfPublication());
 	}
 
 	convertArticles(articles: Array<ArticleAggregate>): Array<ArticleStoreAnemia> {

@@ -2,7 +2,8 @@ export class ArticleAggregate {
 
 	constructor(private id: string,
 				private title: string,
-				private content: string) {
+				private content: string,
+				private yearOfPublication: number) {
 	}
 
 	getId(): string {
@@ -15,5 +16,9 @@ export class ArticleAggregate {
 
 	getContent(): string {
 		return this.content;
+	}
+
+	getYearOfPublication(): number {
+		return this.yearOfPublication;
 	}
 }

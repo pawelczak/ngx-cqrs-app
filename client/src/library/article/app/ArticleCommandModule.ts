@@ -4,8 +4,10 @@ import { ArticleAggregateRepository } from '../domain/command/ArticleAggregateRe
 import { NgrxArticleAggregateRepository } from '../infrastructure/ngrx/command/NgrxArticleAggregateRepository';
 import { COMMAND_HANDLERS } from '../../author/util/cqrs/domain/command/COMMAND_HANDLERS';
 import { FetchArticlesCommandHandler } from '../domain/command/fetch/FetchArticlesCommandHandler';
+import { RestAuthorConverter } from '../../author/command/infrastructure/rest/RestAuthorConverter';
 
 const providers = [
+	RestAuthorConverter,
 	{
 		provide: ArticleAggregateRepository,
 		useClass: NgrxArticleAggregateRepository
