@@ -1,0 +1,12 @@
+{
+	"ratings": [{
+		"authorId": "1",
+		"rating": 34
+	}, {
+		"authorId": "2",
+		"rating": 8
+	}, {
+		"authorId": "3",
+		"rating": 16
+	}]
+}

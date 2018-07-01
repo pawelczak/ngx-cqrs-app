@@ -7,6 +7,7 @@ import { AuthorResource } from '../../domain/AuthorResource';
 import { RestAuthorConverter } from './RestAuthorConverter';
 
 import * as rawAuthors from './authors.json';
+import * as rawRatings from './authorRatings.json';
 
 @Injectable()
 export class RestAuthorResource extends AuthorResource {
@@ -28,11 +29,7 @@ export class RestAuthorResource extends AuthorResource {
 	}
 
 	fetchAllRatings(): Observable<{ [key: number]: number }> {
-		return of({
-			1: 25,
-			2: 36,
-			3: 8
-		})
+		return of(this.convertRatings())
 			.pipe(
 				delay(1500)
 			);
@@ -40,6 +37,18 @@ export class RestAuthorResource extends AuthorResource {
 
 	updateRating(authorAggregate: AuthorAggregate): Observable<void> {
 		return of(null);
+	}
+
+	private convertRatings(): {[key: string]: number} {
+
+		let ratings = (rawRatings  as any).ratings,
+			keyToRating = {};
+
+		ratings.forEach((rating: any) => {
+			keyToRating[rating.authorId] = rating.rating;
+		});
+
+		return keyToRating;
 	}
 
 }

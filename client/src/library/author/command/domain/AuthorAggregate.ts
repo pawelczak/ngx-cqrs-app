@@ -3,7 +3,7 @@ import { ArticleAggregate } from '../../../article/domain/command/ArticleAggrega
 
 export class AuthorAggregate {
 
-	private rating: number;
+	private rating: number = 0;
 
 	constructor(public id: string,
 				public name: string,
