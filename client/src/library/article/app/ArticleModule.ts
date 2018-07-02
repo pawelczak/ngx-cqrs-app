@@ -8,6 +8,7 @@ import { ARTICLE_STORE_NAME } from '../infrastructure/ngrx/NgrxArticleStoreName'
 import { NgrxArticleConverter } from '../infrastructure/ngrx/NgrxArticleConverter';
 import { ArticleResource } from '../domain/command/ArticleResource';
 import { RestArticleResource } from '../infrastructure/rest/RestArticleResource';
+import { RestArticleConverter } from '../infrastructure/rest/RestArticleConverter';
 
 const storeName = 'articles';
 
@@ -19,6 +20,7 @@ const providers: Array<Provider> = [
 		provide: ArticleResource,
 		useClass: RestArticleResource
 	},
+	RestArticleConverter,
 	NgrxArticleConverter
 ];
 
