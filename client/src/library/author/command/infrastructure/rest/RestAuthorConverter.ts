@@ -24,7 +24,7 @@ export class RestAuthorConverter {
 
 	private convertContributions(rawContribs: Array<any>): Array<ArticleContribution>{
 		return rawContribs.map((contrib) => {
-			return new ArticleContribution(contrib.id);
+			return new ArticleContribution(contrib);
 		});
 	}
 }

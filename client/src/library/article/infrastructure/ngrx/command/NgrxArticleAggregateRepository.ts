@@ -14,7 +14,6 @@ import { NgrxArticleConverter } from '../NgrxArticleConverter';
 @Injectable()
 export class NgrxArticleAggregateRepository extends ArticleAggregateRepository {
 
-
 	constructor(private store: Store<any>,
 				private eventDispatcher: EventDispatcher,
 				private ngrxArticleConverter: NgrxArticleConverter,
@@ -27,6 +26,7 @@ export class NgrxArticleAggregateRepository extends ArticleAggregateRepository {
 				   .pipe(
 					   map((entities: { [key: string]: ArticleStoreAnemia }) => {
 						   return Object.keys(entities)
+										.map(key => entities[key])
 										.map((article: any) => {
 											return new ArticleAggregate(article.id, article.title, article.content, article.yearOfPublication);
 										});

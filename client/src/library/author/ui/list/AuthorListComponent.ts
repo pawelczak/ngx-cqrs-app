@@ -23,13 +23,13 @@ export class AuthorListComponent implements OnInit {
 	constructor(private injector: Injector,
 				private changeDetectorRef: ChangeDetectorRef,
 				private commandDispatcher: CommandDispatcher,
-				private authorRepository: AuthorQueryRepository,
+				private authorQueryRepository: AuthorQueryRepository,
 				private eventBus: EventBus) {
 	}
 
 	ngOnInit() {
 
-		this.authorRepository
+		this.authorQueryRepository
 			.selectAll()
 			.subscribe((authors) => {
 				this.authors = authors;

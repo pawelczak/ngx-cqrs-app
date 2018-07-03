@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { zip } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, take } from 'rxjs/operators';
 
 import { AuthorAggregateRepository } from '../AuthorAggregateRepository';
 import { AuthorResource } from '../AuthorResource';
@@ -44,6 +44,7 @@ export class LoadAuthorCommandHandler extends CommandHandler {
 					return this.articleAggregateRepository
 							   .selectAll()
 							   .pipe(
+								   take(1),
 								   map((articleAggregates: Array<ArticleAggregate>) => {
 
 									   aggregates.forEach((aggregate) => {
@@ -55,6 +56,7 @@ export class LoadAuthorCommandHandler extends CommandHandler {
 							   );
 				})
 			)
-			.subscribe(() => {});
+			.subscribe(() => {
+			});
 	}
 }
