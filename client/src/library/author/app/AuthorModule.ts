@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatButtonModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { AuthorListComponent } from '../ui/list/AuthorListComponent';
 import { authorReducer } from '../command/infrastructure/store/AuthorReducer';
@@ -42,6 +42,8 @@ const providers: Array<Provider> = [
 		CommonModule,
 		MatCardModule,
 		MatButtonModule,
+		MatListModule,
+		MatProgressSpinnerModule,
 		CQRSModule.forFeature({
 			storeName: storeName,
 			states: {

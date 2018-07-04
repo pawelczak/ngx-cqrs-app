@@ -1,4 +1,4 @@
-<div *ngIf="authors; else authorsLoading;">
+<div *ngIf="authors !== undefined; else authorsLoading">
 
 	<cqrs-author-panel *ngFor="let author of authors"
 			[author]="author">
@@ -7,7 +7,5 @@
 </div>
 
 <ng-template #authorsLoading>
-	<div>
-		Loading...
-	</div>
+	<mat-spinner></mat-spinner>
 </ng-template>

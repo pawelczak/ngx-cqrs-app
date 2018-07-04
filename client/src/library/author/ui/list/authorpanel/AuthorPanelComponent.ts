@@ -27,4 +27,8 @@ export class AuthorPanelComponent {
 		this.showMore = true;
 	}
 
+	hideContributions(): void {
+		this.showMore = false;
+	}
+
 }

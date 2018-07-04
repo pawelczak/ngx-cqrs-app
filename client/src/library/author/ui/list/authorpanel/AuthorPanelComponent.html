@@ -6,33 +6,35 @@
 		<p>
 			{{author.desc}}
 		</p>
-	</mat-card-content>
 
-	<div *ngIf="author.hasContributions()">
-		Contributions No:
-		<ng-container>{{author.getContributions().length}}</ng-container>
+		<p *ngIf="author.hasContributions()">
+			Contributions:
+			<ng-container>{{author.getContributions().length}}</ng-container>
+		</p>
 
-		<button *ngIf="!showMore"
-				mat-raised-button
-				color="primary"
-				(click)="showContributions()" >
-			Show more
-		</button>
-
-		<ul *ngIf="showMore">
-
+		<mat-list *ngIf="showMore">
 			Articles:
-			<li *ngFor="let contrib of author.getContributions()">
+			<mat-list-item *ngFor="let contrib of author.getContributions()">
 				{{contrib.title}}
-			</li>
+			</mat-list-item>
 
-		</ul>
-	</div>
+		</mat-list>
+	</mat-card-content>
 
 	<mat-card-actions>
 		<button mat-raised-button
 				(click)="increaseAuthorsRating(author.id)">
 			{{author.rating}} LIKE
+		</button>
+		<button *ngIf="!showMore"
+				mat-raised-button
+				(click)="showContributions()" >
+			Show more
+		</button>
+		<button *ngIf="showMore"
+				mat-raised-button
+				(click)="hideContributions()" >
+			Show Less
 		</button>
 	</mat-card-actions>
 </mat-card>

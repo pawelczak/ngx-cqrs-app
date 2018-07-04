@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector, ChangeDetectorRef } from '@angular/core';
-import { filter, take } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { filter, skipUntil, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { LoadAuthorsCommand } from '../../command/domain/AuthorCommands';
 import { AuthorQueryRepository } from '../../query/domain/AuthorQueryRepository';
@@ -10,6 +11,7 @@ import { FetchArticlesCommand } from '../../../article/domain/command/fetch/Fetc
 import { EventBus } from '../../util/cqrs/domain/event/EventBus';
 import { DomainEvent } from '../../util/cqrs/domain/event/DomainEvent';
 import { ArticlesFetchedEvent } from '../../../article/domain/command/fetch/ArticlesFetchedEvent';
+import { AuthorsLoadedEvent } from '../../command/domain/AuthorEvents';
 
 @Component({
 	selector: 'cqrs-author-list',
@@ -20,6 +22,8 @@ export class AuthorListComponent implements OnInit {
 
 	authors: Array<AuthorQuery>;
 
+	private unsubscribe$ = new Subject<void>();
+
 	constructor(private injector: Injector,
 				private changeDetectorRef: ChangeDetectorRef,
 				private commandDispatcher: CommandDispatcher,
@@ -29,13 +33,23 @@ export class AuthorListComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.authorQueryRepository
-			.selectAll()
+		this.eventBus
+			.pipe(
+				filter((event: DomainEvent) => event.constructor.name === AuthorsLoadedEvent.type),
+				switchMap(() => {
+					return this.authorQueryRepository
+							   .selectAll()
+							   .pipe(
+								   takeUntil(
+									   this.unsubscribe$
+								   )
+							   );
+				})
+			)
 			.subscribe((authors) => {
 				this.authors = authors;
 				this.changeDetectorRef.detectChanges();
 			});
-
 
 		this.eventBus
 			.pipe(
@@ -48,6 +62,11 @@ export class AuthorListComponent implements OnInit {
 
 		this.commandDispatcher.dispatch(new FetchArticlesCommand());
 
+	}
+
+	ngOnDestroy() {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 }
