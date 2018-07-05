@@ -5,20 +5,15 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 
-// import { BookManagerModule } from '../library/book/ui/book/manager/BookManagerModule';
-import { AuthorModule } from '../library/author/app/AuthorModule';
-import { CQRSModule } from '../library/author/util/cqrs/CQRSModule';
-import { CqrsStrategy } from '../library/author/util/cqrs/CqrsStrategy';
+import { BookManagerModule } from '../library/book/ui/book/manager/BookManagerModule';
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(routes),
-		// BookManagerModule.forRoot({ rest: true })
+		BookManagerModule.forRoot({ rest: true })
 
-		CQRSModule.forRoot(CqrsStrategy.NGRX),
 
-		AuthorModule.forRoot()
 	],
 	declarations: [
 		AppComponent
