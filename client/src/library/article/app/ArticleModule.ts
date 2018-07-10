@@ -5,9 +5,6 @@ import { CQRSModule } from '../../author/util/cqrs/CQRSModule';
 import { ArticleCommandModule } from './ArticleCommandModule';
 import { ArticleQueryModule } from './ArticleQueryModule';
 import { ARTICLE_STORE_NAME } from '../infrastructure/ngrx/NgrxArticleStoreName';
-import { NgrxArticleConverter } from '../infrastructure/ngrx/NgrxArticleConverter';
-import { ArticleResource } from '../domain/command/ArticleResource';
-import { RestArticleResource } from '../infrastructure/rest/RestArticleResource';
 
 const storeName = 'articles';
 
@@ -15,11 +12,7 @@ const providers: Array<Provider> = [
 	{
 		provide: ARTICLE_STORE_NAME,
 		useValue: storeName
-	}, {
-		provide: ArticleResource,
-		useClass: RestArticleResource
-	},
-	NgrxArticleConverter
+	}
 ];
 
 @NgModule({
