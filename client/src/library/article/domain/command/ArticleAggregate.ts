@@ -8,4 +8,12 @@ export class ArticleAggregate {
 	getId(): string {
 		return this.id;
 	}
+
+	getTitle(): string {
+		return this.title;
+	}
+
+	getContent(): string {
+		return this.content;
+	}
 }
