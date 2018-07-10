@@ -3,21 +3,17 @@ const webpack = require('webpack'),
 	commonConfig = require('./webpack.common.js'),
 	DefinePlugin = require('webpack/lib/DefinePlugin'),
 	LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+	UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 const config = webpackMerge(commonConfig, {
 
+	mode: 'production',
+
 	devtool: 'source-map',
 
 	plugins: [
-		new webpack.NoErrorsPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
-			beautify: false,
-			mangle: {screw_ie8: true},
-			compress: {screw_ie8: true},
-			comments: false
-		}),
 		new DefinePlugin({
 			'ENV': JSON.stringify(ENV)
 		}),
@@ -32,7 +28,26 @@ const config = webpackMerge(commonConfig, {
 				}
 			}
 		})
-	]
+	],
+
+	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				uglifyOptions: {
+					compress: true,
+					ecma: 6,
+					output: {
+						comments: false
+					},
+					compress: {
+						dead_code: true,
+						drop_console: false
+					}
+				},
+				sourceMap: false
+			})
+		]
+	}
 
 });
 

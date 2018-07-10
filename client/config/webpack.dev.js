@@ -7,6 +7,8 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 const config = webpackMerge(commonConfig, {
 
+	mode: 'development',
+
 	devtool: 'cheap-module-eval-source-map',
 
 	plugins: [
